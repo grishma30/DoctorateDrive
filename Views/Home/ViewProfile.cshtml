@@ -1,0 +1,958 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "View Profile";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/viewprofile.css" />
+}
+@section Scripts {
+    <script src="~/js/viewprofile.js"></script>
+}
+
+
+@* <body class="d-flex flex-column min-vh-100"> *@
+<header class="header-container">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Left side - Menu button and Logo -->
+            <div class="d-flex align-items-center">
+                <button class="hamburger-menu" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="/Home/Index">
+                    <img src="/images/charusatLOGO.png" alt="CHARUSAT Logo">
+                </a>
+            </div>
+
+            <!-- Center - Dashboard Title -->
+            <div class="flex-grow-1 text-center">
+                <h1 class="dashboard-title">Dashboard</h1>
+            </div>
+
+            <!-- Right side - Notifications and User Profile -->
+            <div class="d-flex align-items-center">
+
+                <span class="welcome-text">Welcome SRUSHTI GAJJAR</span>
+                <div class="user-profile">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iNDUiIHZpZXdCb3g9IjAgMCA0NSA0NSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjIuNSIgY3k9IjIyLjUiIHI9IjIyLjUiIGZpbGw9IiNGRkZGRkYiLz4KPGNpcmNsZSBjeD0iMjIuNSIgY3k9IjE4IiByPSI3IiBmaWxsPSIjMkU4NkFCIi8+CjxwYXRoIGQ9Ik0xMCAzNUMxMCAzMC41IDEzLjUgMjcgMjIuNSAyN0MzMS41IDI3IDM1IDMwLjUgMzUgMzVIMTBaIiBmaWxsPSIjMkU4NkFCIi8+Cjwvc3ZnPgo="
+                         alt="User Avatar"
+                         class="user-avatar"
+                         id="userAvatar">
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="/Home/ViewProfile" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-key"></i>
+                            Change Password
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Side Menu -->
+<div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+        <h5>Menu</h5>
+        <button class="side-menu-close" id="menuClose">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="side-menu-content">
+        <a href="/Home/ViewProfile" class="menu-item">
+            <i class="fas fa-user"></i>
+            Profile
+        </a>
+        <a href="/Home/Index" class="menu-item">
+            <i class="fas fa-home"></i>
+            Dashboard
+        </a>
+        <a href="#" class="menu-item">
+            <i class="fas fa-calendar"></i>
+            Schedule
+        </a>
+        <a href="#" class="menu-item">
+            <i class="fas fa-graduation-cap"></i>
+            Courses
+        </a>
+    </div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+    <!-- Main Content Area (Empty as requested) -->
+    <main class="main-content">
+        <div class="container-fluid">
+            <!-- Your main content will go here -->
+        <div class="profile-container">
+            <div class="profile-card">
+                <h3 class="section-title">General Information</h3>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Student ID</label>
+                                    <input type="text" class="form-control" value="24DRFTECE003" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">CHARUSAT Employee ID</label>
+                                    <input type="text" class="form-control" value="8352" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Registration Date</label>
+                            <div class="date-input">
+                                <input type="date" class="form-control" value="2025-02-06">
+                                
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Full Name (As Per Last Marksheet)</label>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <select class="form-select">
+                                        <option>Select...</option>
+                                        <option>Mr.</option>
+                                        <option>Ms.</option>
+                                        <option>Mrs.</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" value="GAJJAR" placeholder="First Name">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" value="SRUSHTI" placeholder="Middle Name">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" value="RAKESHKUMAR" placeholder="Last Name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Display Name</label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <select class="form-select">
+                                        <option>LFM</option>
+                                        <option>FLM</option>
+                                        <option>FML</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" value="GAJJAR SRUSHTI RAKESHKUMAR" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="photo-section">
+                            <img src="" id="studentPhoto" class="student-photo d-none" alt="Student Photo">
+                            <div id="photoPlaceholder" class="photo-placeholder">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <div class="mt-3">
+                               
+                                <button type="button" class="btn btn-custom btn-sm me-2" onclick="document.getElementById('photoInput').click()">
+                                    <i class="fas fa-upload me-1"></i>Upload
+                                </button>
+                                <button class="btn btn-clear btn-sm" id="clear-photo">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Mother's Name</label>
+                            <input type="text" class="form-control" value="SONAL">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">NoPaperForms ApplicationNo</label>
+                            <input type="text" class="form-control" value="25DRFTECE002" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Birth Date <span class="required">*</span></label>
+                            <div class="date-input">
+                                <input type="date" class="form-control" value="1997-09-16">
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Reshuffle Status</label>
+                            <div class="form-check">
+                                <input class="form-check-input checkbox-custom" type="checkbox" id="reshuffleStatus">
+                                <label class="form-check-label" for="reshuffleStatus">
+                                    Is Reshuffle in
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Birth Place</label>
+                            <input type="text" class="form-control" value="Ahmedabad">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Reshuffle Phase</label>
+                            <select class="form-select">
+                                <option>Select...</option>
+                                <option>Phase 1</option>
+                                <option>Phase 2</option>
+                                <option>Phase 3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Gender <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                                    <label class="form-check-label" for="male">Male</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female" checked>
+                                    <label class="form-check-label" for="female">Female</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="gender" id="transgender" value="transgender">
+                                    <label class="form-check-label" for="transgender">Transgender</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Admission Caste <span class="required">*</span></label>
+                            <input type="text" class="form-control" value="OBC" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">D2D Admission</label>
+                            <div class="form-check">
+                                <input class="form-check-input checkbox-custom" type="checkbox" id="d2dStudent">
+                                <label class="form-check-label" for="d2dStudent">
+                                    Is D2D Student
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Actual Caste <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option>OBC</option>
+                                <option>General</option>
+                                <option>SC</option>
+                                <option>ST</option>
+                                <option>EWS</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">University <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option>CHARUSAT</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Religion <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option>Hindu</option>
+                                <option>Muslim</option>
+                                <option>Christian</option>
+                                <option>Sikh</option>
+                                <option>Buddhist</option>
+                                <option>Jain</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Institute <span class="required">*</span></label>
+                            <input type="text" class="form-control" value="CSPIT" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Subcaste <span class="required">*</span></label>
+                            <input type="text" class="form-control" value="Suthar">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Program <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option>DRFTECE</option>
+                                <option>Other Programs</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Nationality <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="nationality" id="indian" value="indian" checked>
+                                    <label class="form-check-label" for="indian">INDIAN</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="nationality" id="other" value="other">
+                                    <label class="form-check-label" for="other">OTHER</label>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control mt-2" value="INDIAN" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Academic Year <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option>2024-25</option>
+                                <option>2023-24</option>
+                                <option>2022-23</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Mother Tongue <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="motherTongue" id="gujarati" value="gujarati" checked>
+                                    <label class="form-check-label" for="gujarati">GUJARATI</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="motherTongue" id="hindi" value="hindi">
+                                    <label class="form-check-label" for="hindi">HINDI</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="motherTongue" id="marathi" value="marathi">
+                                    <label class="form-check-label" for="marathi">MARATHI</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="motherTongue" id="otherLang" value="other">
+                                    <label class="form-check-label" for="otherLang">OTHER</label>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control mt-2" value="GUJARATI" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Admission Term <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option>First</option>
+                                <option>Second</option>
+                                <option>Third</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Marital Status <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option>UNMARRIED</option>
+                                <option>MARRIED</option>
+                                <option>DIVORCED</option>
+                                <option>WIDOWED</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Date of Admission <span class="required">*</span></label>
+                            <div class="date-input">
+                                <input type="date" class="form-control" value="2025-02-06">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Blood Group <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option>A+</option>
+                                <option>A-</option>
+                                <option>B+</option>
+                                <option>B-</option>
+                                <option>AB+</option>
+                                <option>AB-</option>
+                                <option>O+</option>
+                                <option>O-</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Admission Year (Uni.) <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option>2024-25</option>
+                                <option>2023-24</option>
+                                <option>2022-23</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Aadhaar Number <span class="required">*</span></label>
+                            <input type="text" class="form-control" value="707926293584" maxlength="12">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Current Sem</label>
+                            <select class="form-select">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Student Name As Per Aadhaar <span class="required">*</span></label>
+                            <input type="text" class="form-control" value="GAJJAR SRUSHTI RAKESHKUMAR">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Moti 27 Patidar Samaj</label>
+                            <select class="form-select">
+                                <option>Select...</option>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Student Mobile Number As Per Aadhaar <span class="required">*</span></label>
+                            <input type="tel" class="form-control" value="9409546741" maxlength="10">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Admission Type <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option>PHD INT.</option>
+                                <option>Regular</option>
+                                <option>Lateral Entry</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Enrollment Type</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="enrollmentType" id="fullTime" value="fullTime">
+                                    <label class="form-check-label" for="fullTime">Full Time</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="enrollmentType" id="partTime" value="partTime" checked>
+                                    <label class="form-check-label" for="partTime">Part Time</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">ACPC/ACPMEC Application Number</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Freeship Card Holder</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="freeshipCard" id="freeshipNo" value="no" checked>
+                                    <label class="form-check-label" for="freeshipNo">No</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input class="form-check-input" type="radio" name="freeshipCard" id="freeshipYes" value="yes">
+                                    <label class="form-check-label" for="freeshipYes">Yes</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">ACPC Merit</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">ACPC MERIT MARKS</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Is Handicapped</label>
+                            <div class="form-check">
+                                <input class="form-check-input checkbox-custom" type="checkbox" id="handicapped">
+                                <label class="form-check-label" for="handicapped">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">VIP Reference</label>
+                    <input type="text" class="form-control">
+                </div>
+
+               
+                <!-- Toast Container -->
+                <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                    <div id="toastMessage" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                Profile saved successfully!
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Academic Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Academic Information</h3>
+
+                    <div class="mb-3">
+                        <h5 style="font-weight: 600; color: #333; margin-bottom: 15px;">Last School/College Details</h5>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label class="form-label required">Country</label>
+                            <select class="form-select">
+                                <option value="">Select...</option>
+                                <option value="INDIA" selected>INDIA</option>
+                                <option value="USA">USA</option>
+                                <option value="UK">UK</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label required">State</label>
+                            <select class="form-select">
+                                <option value="">Select...</option>
+                                <option value="GUJARAT" selected>GUJARAT</option>
+                                <option value="MAHARASHTRA">MAHARASHTRA</option>
+                                <option value="DELHI">DELHI</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label required">City</label>
+                            <input type="text" class="form-control" value="CHANGA">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label required">School/College Name</label>
+                            <input type="text" class="form-control" value="CSPIT">
+                        </div>
+                    </div>
+
+                    <div class="academic-table">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="academicTable">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 12%;">Exam</th>
+                                        <th style="width: 12%;">Seat No.</th>
+                                        <th style="width: 12%;">CGPA/% Obtained</th>
+                                        <th style="width: 10%;">Percentile</th>
+                                        <th style="width: 8%;">Year</th>
+                                        <th style="width: 10%;">Month</th>
+                                        <th style="width: 14%;">Board / University</th>
+                                        <th style="width: 14%;">Group / Specialisation</th>
+                                        <th style="width: 8%;">Documents</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="academicTableBody">
+                                    <tr>
+                                        <td>
+                                            <select class="form-select">
+                                                <option value="">Select...</option>
+                                                <option value="SSC">SSC</option>
+                                                <option value="HSC">HSC</option>
+                                                <option value="BE/BTECH">BE / BTECH</option>
+                                                <option value="MTECH">MTECH</option>
+                                                <option value="DIPLOMA">DIPLOMA</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td>
+                                            <select class="form-select">
+                                                <option value="">Select...</option>
+                                                <option value="JANUARY">JANUARY</option>
+                                                <option value="FEBRUARY">FEBRUARY</option>
+                                                <option value="MARCH">MARCH</option>
+                                                <option value="APRIL">APRIL</option>
+                                                <option value="MAY">MAY</option>
+                                                <option value="JUNE">JUNE</option>
+                                                <option value="JULY">JULY</option>
+                                                <option value="AUGUST">AUGUST</option>
+                                                <option value="SEPTEMBER">SEPTEMBER</option>
+                                                <option value="OCTOBER">OCTOBER</option>
+                                                <option value="NOVEMBER">NOVEMBER</option>
+                                                <option value="DECEMBER">DECEMBER</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td class="action-cell">
+                                            <button type="button" class="btn-action btn-upload" onclick="uploadDocument(this)">
+                                                <i class="fas fa-plus"></i> Add
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Local Address Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Local Address</h3>
+
+                    <div class="btn-group-custom">
+                        <button type="button" class="btn-custom">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <button type="button" class="btn-custom">
+                            <i class="fas fa-paste"></i> Paste
+                        </button>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Room No./Flat No./Block No.</label>
+                            <input type="text" class="form-control" value="A-3,301">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Student's Mobile No</label>
+                            <input type="text" class="form-control" value="9409546741">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Name of Building/Premises/Society/Sheri/Mahola</label>
+                            <input type="text" class="form-control" value="RADHE UPAVAN">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Phone No</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Land Mark/Road/Area/Locality etc.</label>
+                            <input type="text" class="form-control" value="DAVALPURA CROSS ROAD">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Personal Email</label>
+                            <input type="email" class="form-control" value="srgajar1609@gmail.com">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">City/Town/Village</label>
+                            <input type="text" class="form-control" value="PETLAD">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">CHARUSAT Email</label>
+                            <input type="email" class="form-control" value="srgajar1609@gmail.com">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Zip/Postal Code</label>
+                            <input type="text" class="form-control" value="388450">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">URL</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Taluka/Tehsil</label>
+                            <input type="text" class="form-control" value="PETLAD">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Emergency No.</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">District</label>
+                            <input type="text" class="form-control" value="ANAND">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">State</label>
+                            <input type="text" class="form-control" value="GUJARAT">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Country</label>
+                            <input type="text" class="form-control" value="India">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Permanent Address Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Permanent Address</h3>
+
+                    <div class="btn-group-custom">
+                        <button type="button" class="btn-custom">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <button type="button" class="btn-custom">
+                            <i class="fas fa-paste"></i> Paste
+                        </button>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Room No./Flat No./Block No.</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Student's Mobile No</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Name of Building/Premises/Society/Sheri/Mahola</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Phone No</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Land Mark/Road/Area/Locality etc.</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Personal Email</label>
+                            <input type="email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">City/Town/Village</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">CHARUSAT Email</label>
+                            <input type="email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Zip/Postal Code</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">URL</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Taluka/Tehsil</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Emergency No.</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">District</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">State</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required">Country</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button class="btn btn-custom btn-lg me-3" id="save-button">
+                        <i class="fas fa-save me-2"></i>Save Profile
+                    </button>
+                    <button class="btn btn-outline-secondary btn-lg" id="cancel-button">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    @* <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Charotar University of Science and Technology. All rights reserved.</p>
+            </div>
+        </div>
+    </footer> *@
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2024 CHARUSAT University of Science and Technology. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,343 @@
+﻿
+/*:root {
+    --primary-blue: #1e88e5;
+    --secondary-blue: #42a5f5;
+    --light-blue: #e3f2fd;
+    --orange-accent: #ff9800;
+    --dark-text: #2c3e50;
+    --light-gray: #f8f9fa;
+}
+
+body {
+    background-color: var(--light-gray);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+}*/
+
+.profile-header {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    color: white;
+    padding: 15px 20px;
+    margin: 0;
+    display: flex;
+    justify-content: between;
+    align-items: center;
+}
+
+    .profile-header h4 {
+        margin: 0;
+        font-weight: 600;
+        flex-grow: 1;
+    }
+
+.profile-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #1c398a;
+}
+
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.form-control, .form-select {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: #17a2b8;
+        box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25);
+    }
+
+.required {
+    color: #dc3545;
+}
+
+.photo-section {
+    text-align: center;
+    padding: 20px;
+}
+
+.student-photo {
+    width: 150px;
+    height: 180px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 3px solid #dee2e6;
+    margin-bottom: 15px;
+}
+
+.photo-placeholder {
+    width: 120px;
+    height: 150px;
+    background-color: var(--light-blue);
+    border: 2px dashed #1c398a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-blue);
+    font-size: 2rem;
+    border-radius: 4px;
+}
+
+.btn-custom {
+    background-color: #1c398a;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .btn-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(23, 162, 184, 0.3);
+    }
+
+.btn-clear {
+    background: #6c757d;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+}
+
+.checkbox-custom {
+    margin-right: 8px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mode-indicator {
+    background: #28a745;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.save-btn {
+    background: #1c398a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+}
+
+.date-input {
+    position: relative;
+}
+
+    .date-input .fa-calendar {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        pointer-events: none;
+    }
+
+.save-button {
+    background-color: #1c398a;
+}
+.form-control[type="date"] {
+    padding-right: 40px;
+}
+
+.form-section {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 8px;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.required::after {
+    content: " *";
+    color: #dc3545;
+}
+
+.form-control, .form-select {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+.btn-group-custom {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.btn-custom {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    background: #303f9f;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .btn-custom:hover {
+        background: #f8f9fa;
+    }
+
+.academic-table {
+    margin-top: 20px;
+}
+
+.table {
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+    .table thead th {
+        background: #3949ab;
+        color: white;
+        font-weight: 600;
+        border: none;
+        padding: 12px 8px;
+        text-align: center;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .table tbody td {
+        padding: 8px;
+        vertical-align: middle;
+        border-color: #dee2e6;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .table .form-control, .table .form-select {
+        border: 1px solid #ced4da;
+        padding: 6px 8px;
+        font-size: 13px;
+        min-height: 32px;
+    }
+
+.btn-add-row {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+    .btn-add-row:hover {
+        background: #2980b9;
+        color: white;
+    }
+
+.btn-action {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 0 2px;
+}
+
+.btn-upload {
+    background: #3498db;
+    color: white;
+}
+
+    .btn-upload:hover {
+        background: #2980b9;
+    }
+
+.btn-edit {
+    background: #f39c12;
+    color: white;
+}
+
+    .btn-edit:hover {
+        background: #e67e22;
+    }
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+}
+
+    .btn-delete:hover {
+        background: #c0392b;
+    }
+
+.action-cell {
+    text-align: center;
+    min-width: 100px;
+}

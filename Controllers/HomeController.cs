@@ -18,6 +18,20 @@ namespace DoctorateDrive.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult studentDashboard()
+        {
+            return View("studentDashboard");
+        }
+
+        public IActionResult ViewProfile()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

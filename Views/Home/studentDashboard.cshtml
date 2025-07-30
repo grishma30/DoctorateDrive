@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+   
+}
+@* <body class="d-flex flex-column min-vh-100"> *@
+<!-- Header -->
+<header class="header-container">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Left side - Menu button and Logo -->
+            <div class="d-flex align-items-center">
+                <button class="hamburger-menu" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="/Home/Index">
+                    <img src="/images/charusatLOGO.png" alt="CHARUSAT Logo">  
+                </a>
+            </div>
+
+            <!-- Center - Dashboard Title -->
+            <div class="flex-grow-1 text-center">
+                <h1 class="dashboard-title">Dashboard</h1>
+            </div>
+
+            <!-- Right side - Notifications and User Profile -->
+            <div class="d-flex align-items-center">
+                
+                <span class="welcome-text">Welcome SRUSHTI GAJJAR</span>
+                <div class="user-profile">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iNDUiIHZpZXdCb3g9IjAgMCA0NSA0NSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjIuNSIgY3k9IjIyLjUiIHI9IjIyLjUiIGZpbGw9IiNGRkZGRkYiLz4KPGNpcmNsZSBjeD0iMjIuNSIgY3k9IjE4IiByPSI3IiBmaWxsPSIjMkU4NkFCIi8+CjxwYXRoIGQ9Ik0xMCAzNUMxMCAzMC41IDEzLjUgMjcgMjIuNSAyN0MzMS41IDI3IDM1IDMwLjUgMzUgMzVIMTBaIiBmaWxsPSIjMkU4NkFCIi8+Cjwvc3ZnPgo="
+                         alt="User Avatar"
+                         class="user-avatar"
+                         id="userAvatar">
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="/Home/ViewProfile" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-key"></i>
+                            Change Password
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Side Menu -->
+<div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+        <h5>Menu</h5>
+        <button class="side-menu-close" id="menuClose">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="side-menu-content">
+        <a href="/Home/ViewProfile" class="menu-item">
+            <i class="fas fa-user"></i>
+            Profile
+        </a>
+        <a href="/Home/Index" class="menu-item">
+            <i class="fas fa-home"></i>
+            Dashboard
+        </a>
+        <a href="#" class="menu-item">
+            <i class="fas fa-calendar"></i>
+            Schedule
+        </a>
+        <a href="#" class="menu-item">
+            <i class="fas fa-graduation-cap"></i>
+            Courses
+        </a>
+
+    </div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Main Content -->
+<main class="container-fluid py-4">
+   
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2024 CHARUSAT University of Science and Technology. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>

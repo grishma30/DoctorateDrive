@@ -1,8 +1,179 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+ 
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="header">
+    <img src="/images/charusatLOGO.png" alt="CHARUSAT Logo" class="header-logo">
 </div>
+
+
+<!-- Hero Section -->
+<section class="hero-section">
+   
+
+    <div class="university-building"></div>
+
+    <div class="container hero-content">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="welcome-card">
+                    <h1 class="welcome-title">Welcome to <span class="charusat-text">CHARUSAT</span></h1>
+                    <div class="welcome-subtitle">
+                        Get started with your admission process with CHARUSAT
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h2 class="info-title">A Hub of Knowledge, Where Every Mind Grows and Flourishes</h2>
+                    <p class="info-description">
+                        A premier educational institution established in 2009, offering a diverse range of undergraduate, postgraduate,
+                        and doctoral programs across multiple disciplines for every student.
+                    </p>
+                </div>
+                <div class="btn-container">
+                    <a href="/registration" class="register-btn" id="registerBtn">
+                        Register here with CHARUSAT
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Progress Indicator -->
+<div class="progress-indicator">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="container">
+        <h1 class="page-title fade-in-up">Guide to Apply for Learning at CHARUSAT</h1>
+        <p class="page-subtitle fade-in-up">Here is how to apply for the admission</p>
+
+        <div class="steps-container">
+            
+
+            <!-- Step 1 -->
+            <div class="step-item" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3 class="step-title">
+                        <i class="fas fa-user-plus"></i>
+                        Add Candidate Details
+                    </h3>
+                    <p class="step-description">
+                        Add candidate (student) details - last degree, name, address, etc. Provide all necessary personal and academic information to begin your application process.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-item" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3 class="step-title">
+                        <i class="fas fa-check-circle"></i>
+                        Confirm Contact Information
+                    </h3>
+                    <p class="step-description">
+                        Confirm your contact information - verify your email, WhatsApp, and mobile number. This ensures we can reach you throughout the admission process.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-item" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3 class="step-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Choose Your Dream Program
+                    </h3>
+                    <p class="step-description">
+                        Choose your dream program - apply for the degree you're interested in. Browse through our comprehensive range of undergraduate, postgraduate, and doctoral programs.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-item" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3 class="step-title">
+                        <i class="fas fa-credit-card"></i>
+                        Pay Application Fees
+                    </h3>
+                    <p class="step-description">
+                        Pay the application fees. Complete the payment process securely through our online portal to confirm your application submission.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-item" data-step="5">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3 class="step-title">
+                        <i class="fas fa-file-text"></i>
+                        Enter Result Details
+                    </h3>
+                    <p class="step-description">
+                        Enter result details - HSC/UG/PG exam scores and upload necessary documents. Ensure all academic records and certificates are properly uploaded.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-item" data-step="6">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h3 class="step-title">
+                        <i class="fas fa-download"></i>
+                        Download Application Form
+                    </h3>
+                    <p class="step-description">
+                        Download the application form and payment receipt. Keep these documents safe as you'll need them for future reference and verification.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="step-item" data-step="7">
+                <div class="step-number">7</div>
+                <div class="step-content">
+                    <h3 class="step-title">
+                        <i class="fas fa-chart-line"></i>
+                        Stay Informed
+                    </h3>
+                    <p class="step-description">
+                        Stay informed - track the progress of your application. Monitor your application status and receive updates on admission decisions through our tracking system.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Completion Card -->
+            <div class="completion-card">
+                <h3><i class="fas fa-trophy"></i> Ready to Begin Your Journey?</h3>
+                <p>Follow these simple steps to secure your place at CHARUSAT and start your academic excellence journey!</p>
+            </div>
+        </div>
+    </div>
+</div>  <!-- Sticky Announcement Banner -->
+<div class="announcement-banner" id="announcementBanner">
+    <div class="announcement-content">
+        <div class="announcement-icon">
+            <i class="fas fa-bullhorn"></i>
+        </div>
+        <div class="announcement-text">
+            📢 Announcements: PhD Advertisement August-Intake-2025 || PhD Admission Apply Now 
+            <span class="announcement-arrow">→</span>
+        </div>
+        <button class="announcement-close" id="closeBanner">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+
