@@ -28,6 +28,16 @@ namespace DoctorateDrive.Controllers
             return View("studentDashboard");
         }
 
+        public IActionResult Login()
+        {
+            return View("Login");
+        }
+
+        public IActionResult Register()
+        {
+            return View("Register");
+        }
+
         public IActionResult ViewProfile()
         {
             return View();

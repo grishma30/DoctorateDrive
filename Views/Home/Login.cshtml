@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "CHARUSAT - Login Portal";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="~/css/register.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+        <div class="floating-shape shape-5"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <div class="login-wrapper">
+            <!-- Logo Section -->
+            <div class="logo-section">
+                <div class="charusat-logo">
+                    <img src="~/images/logo.png" alt="CHARUSAT Logo" width="200" />
+                </div>
+                <div class="logo-text">
+                    <h1>Welcome</h1>
+                    <p>Login to your account</p>
+                </div>
+            </div>
+
+            <!-- Form Section -->
+            <div class="form-section">
+                <h2 class="login-title">Login</h2>
+                <hr class="title-underline">
+
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm", @class = "mt-4" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label for="EmailMobile" class="form-label">Email or Mobile Number*</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            @Html.TextBox("EmailMobile", "", new { @class = "form-control", placeholder = "Enter email or mobile number", required = "required" })
+                        </div>
+                        <div class="invalid-feedback">
+                            This is a required field
+                        </div>
+                        @Html.ValidationMessage("EmailMobile", "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Otp" class="form-label">OTP*</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            @Html.TextBox("Otp", "", new { @class = "form-control", placeholder = "Enter OTP", required = "required" })
+                        </div>
+                        <div class="invalid-feedback">
+                            This is a required field
+                        </div>
+                        <div class="otp-info mt-2">
+                            <i class="fas fa-info-circle me-1"></i>
+                            You can use the most recent OTP sent to your registered Email ID and Mobile Number.
+                        </div>
+                        @Html.ValidationMessage("Otp", "", new { @class = "text-danger" })
+                    </div>
+
+                    <button type="submit" class="btn login-btn w-100 mb-3">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </button>
+                }
+
+                <div class="text-center mb-3">
+                    <button type="button" class="btn get-otp-btn" id="getOtpBtn">
+                        <i class="fas fa-mobile-alt me-2"></i>Get a new OTP
+                    </button>
+                </div>
+
+                <div class="text-center">
+                    <button type="button" class="btn register-btn" onclick="window.location.href='@Url.Action("Register", "Home")'">
+                        <i class="fas fa-user-plus me-2"></i>Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Sliding Notification -->
+    <div class="sliding-notification">
+        <div class="sliding-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Admission inquiry form for B. Tech. closes on 30th May, 2025.</span>
+            <span class="separator">•</span>
+            <span>Admission inquiry form for B. Tech. closes on 30th May, 2025.</span>
+            <span class="separator">•</span>
+            <span>Admission inquiry form for B. Tech. closes on 30th May, 2025.</span>
+            <span class="separator">•</span>
+            <span>Admission inquiry form for B. Tech. closes on 30th May, 2025.</span>
+            <span class="separator">•</span>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title"><i class="fas fa-check-circle me-2"></i>Success</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>Login successful! Redirecting to dashboard...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/login.js"></script>
+</body>
+</html>
