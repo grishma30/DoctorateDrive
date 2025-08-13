@@ -208,53 +208,6 @@ saveBtn.addEventListener("click", function () {
         parent.removeAttribute('data-filename');
     }
 
-    function addNewRow() {
-        const tableBody = document.getElementById('academicTableBody');
-        const newRow = document.createElement('tr');
-
-        newRow.innerHTML = `
-            <td>
-                <select class="form-select">
-                    <option value="">Select...</option>
-                    <option value="SSC">SSC</option>
-                    <option value="HSC">HSC</option>
-                    <option value="BE/BTECH">BE / BTECH</option>
-                    <option value="MTECH">MTECH</option>
-                    <option value="DIPLOMA">DIPLOMA</option>
-                </select>
-            </td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td>
-                <select class="form-select">
-                    <option value="">Select...</option>
-                    <option value="JANUARY">JANUARY</option>
-                    <option value="FEBRUARY">FEBRUARY</option>
-                    <option value="MARCH">MARCH</option>
-                    <option value="APRIL">APRIL</option>
-                    <option value="MAY">MAY</option>
-                    <option value="JUNE">JUNE</option>
-                    <option value="JULY">JULY</option>
-                    <option value="AUGUST">AUGUST</option>
-                    <option value="SEPTEMBER">SEPTEMBER</option>
-                    <option value="OCTOBER">OCTOBER</option>
-                    <option value="NOVEMBER">NOVEMBER</option>
-                    <option value="DECEMBER">DECEMBER</option>
-                </select>
-            </td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td class="action-cell">
-                <button type="button" class="btn-action btn-upload" onclick="uploadDocument(this)">
-                    <i class="fas fa-plus"></i> Add
-                </button>
-            </td>
-        `;
-
-        tableBody.appendChild(newRow);
-    }
 
     //function uploadDocument(button) {
     //    // Create file input
@@ -319,6 +272,62 @@ saveBtn.addEventListener("click", function () {
 
 
 });
+function addNewRow() {
+    const tableBody = document.getElementById('academicTableBody');
+    const rows = tableBody.getElementsByTagName("tr");
+
+    if (rows.length > 0) {
+        const lastRow = rows[rows.length - 1];
+        const lastTd = lastRow.cells[lastRow.cells.length - 1];
+        if (lastTd.innerText.includes("Add")) {
+            alert("Please upload the document in the last row before adding a new one.");
+            return;
+        }
+    }
+
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>
+            <select class="form-select">
+                <option value="">Select...</option>
+                <option value="SSC">SSC</option>
+                <option value="HSC">HSC</option>
+                <option value="BE/BTECH">BE / BTECH</option>
+                <option value="MTECH">MTECH</option>
+                <option value="DIPLOMA">DIPLOMA</option>
+            </select>
+        </td>
+        <td><input type="text" class="form-control"></td>
+        <td><input type="text" class="form-control"></td>
+        <td><input type="text" class="form-control"></td>
+        <td><input type="text" class="form-control"></td>
+        <td>
+            <select class="form-select">
+                <option value="">Select...</option>
+                <option value="JANUARY">JANUARY</option>
+                <option value="FEBRUARY">FEBRUARY</option>
+                <option value="MARCH">MARCH</option>
+                <option value="APRIL">APRIL</option>
+                <option value="MAY">MAY</option>
+                <option value="JUNE">JUNE</option>
+                <option value="JULY">JULY</option>
+                <option value="AUGUST">AUGUST</option>
+                <option value="SEPTEMBER">SEPTEMBER</option>
+                <option value="OCTOBER">OCTOBER</option>
+                <option value="NOVEMBER">NOVEMBER</option>
+                <option value="DECEMBER">DECEMBER</option>
+            </select>
+        </td>
+        <td><input type="text" class="form-control"></td>
+        <td><input type="text" class="form-control"></td>
+        <td class="action-cell">
+            <button type="button" class="btn-action btn-upload" onclick="uploadDocument(this)">
+                <i class="fas fa-plus"></i> Add
+            </button>
+        </td>
+    `;
+    tableBody.appendChild(newRow);
+}
 
 function uploadDocument(button) {
     const td = button.closest('td');
