@@ -1,4 +1,6 @@
+using DoctorateDrive.Models;
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,11 @@ builder.Services.AddControllersWithViews();
 //    options.FallbackPolicy = options.DefaultPolicy;
 //});
 builder.Services.AddRazorPages();
+
+
+builder.Services.AddDbContext<DoctorateDriveContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 
