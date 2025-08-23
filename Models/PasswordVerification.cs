@@ -1,17 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DoctorateDrive.Models;
-
-public partial class PasswordVerification
+namespace DoctorateDrive.Models
 {
-    public int PasswordId { get; set; }
+    [Table("PasswordVerification")]
+    public class PasswordVerification
+    {
+        [Key]
+        public int PasswordId { get; set; }
 
-    public int StudentDetailsId { get; set; }
+        [Required]
+        public int StudentDetailsId { get; set; }
 
-    public string SentPassword { get; set; } = null!;
+        [Required]
+        [StringLength(50)]
+        public string SentPassword { get; set; } = string.Empty;
 
-    public string Password { get; set; } = null!;
+        [Required]
+        [StringLength(50)]
+        public string Password { get; set; } = string.Empty;
 
-    public string Email { get; set; } = null!;
+        [Required]
+        [StringLength(50)]
+        [Column("email")]  // Lowercase column name as per your database
+        public string Email { get; set; } = string.Empty;
+    }
 }

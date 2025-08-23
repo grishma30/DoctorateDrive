@@ -1,25 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DoctorateDrive.Models;
-
-public partial class User
+namespace DoctorateDrive.Models
 {
-    public int UserId { get; set; }
+    [Table("Users")]
+    public class User
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
 
-    public string FullName { get; set; } = null!;
+        [Required]
+        [StringLength(50)]
+        public string FullName { get; set; } = string.Empty;
 
-    public string EmailId { get; set; } = null!;
+        [Required]
+        [StringLength(100)]
+        public string EmailId { get; set; } = string.Empty;
 
-    public string MobileNumber { get; set; } = null!;
+        [Required]
+        [StringLength(15)]
+        public string MobileNumber { get; set; } = string.Empty;
 
-    public string PasswordHash { get; set; } = null!;
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    public string Role { get; set; } = null!;
+        [Required]
+        public DateTime UpdatedAt { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        // Additional properties for application logic
+        [NotMapped]
+        public string Role { get; set; } = "User";
 
-    public DateTime UpdatedAt { get; set; }
-
-    public virtual ICollection<StudentDetail> StudentDetails { get; set; } = new List<StudentDetail>();
+        [NotMapped]
+        public string PasswordHash { get; set; } = string.Empty;
+    }
 }

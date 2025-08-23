@@ -1,19 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DoctorateDrive.Models;
-
-public partial class OtpVerification
+namespace DoctorateDrive.Models
 {
-    public int OtpId { get; set; }
+    [Table("OtpVerification")]
+    public class OtpVerification
+    {
+        [Key]
+        public int OtpId { get; set; }
 
-    public int StudentId { get; set; }
+        [Required]
+        public int StudentID { get; set; }
 
-    public string OtpCode { get; set; } = null!;
+        [Required]
+        [StringLength(10)]
+        public string OtpCode { get; set; } = string.Empty;
 
-    public DateTime ExpiryTime { get; set; }
+        [Required]
+        public DateTime ExpiryTime { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    public virtual StudentDetail Otp { get; set; } = null!;
+        // Remove any [NotMapped] properties or references to "Otp", "StudentId", etc.
+        // Only keep properties that exactly match your database columns
+    }
 }
