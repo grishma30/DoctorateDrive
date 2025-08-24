@@ -24,7 +24,7 @@ namespace DoctorateDrive.Helpers
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.EmailId),
                 new Claim("FullName", user.FullName),
-                new Claim("Role", user.Role)
+                
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));

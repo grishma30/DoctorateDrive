@@ -1,26 +1,19 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
-namespace DoctorateDrive.Models
+namespace DoctorateDrive.Models;
+
+public partial class Document
 {
-    [Table("Documents")]
-    public class Document
-    {
-        [Key]
-        public int DocumentID { get; set; }
+    public int DocumentId { get; set; }
 
-        [Required]
-        public int StudentID { get; set; }
+    public int StudentId { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string DocumentType { get; set; } = string.Empty;
+    public string DocumentType { get; set; } = null!;
 
-        [Required]
-        [StringLength(255)]
-        public string FilePath { get; set; } = string.Empty;
+    public string FilePath { get; set; } = null!;
 
-        public DateTime UploadedDate { get; set; }
-    }
+    public DateTime UploadedDate { get; set; }
+
+    public virtual StudentDetail DocumentNavigation { get; set; } = null!;
 }

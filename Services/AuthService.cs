@@ -1,4 +1,4 @@
-﻿using DoctorateDrive.Data;
+﻿
 using DoctorateDrive.DTOs;
 using DoctorateDrive.Models;
 using Microsoft.EntityFrameworkCore;
@@ -97,14 +97,14 @@ namespace DoctorateDrive.Services
 
                 // Remove existing OTPs for this user
                 var existingOtps = _context.OtpVerifications
-                    .Where(o => o.StudentID == user.UserId);
+                    .Where(o => o.UserId == user.UserId);
 
                 _context.OtpVerifications.RemoveRange(existingOtps);
 
                 // Create new OTP record
                 var otpVerification = new OtpVerification
                 {
-                    StudentID = user.UserId,
+                    UserId = user.UserId,
                     OtpCode = otpCode,
                     ExpiryTime = DateTime.Now.AddMinutes(10),
                     CreatedAt = DateTime.Now
@@ -160,7 +160,7 @@ namespace DoctorateDrive.Services
                 }
 
                 var otpVerification = await _context.OtpVerifications
-                    .FirstOrDefaultAsync(o => o.StudentID == user.UserId &&
+                    .FirstOrDefaultAsync(o => o.UserId == user.UserId &&
                                               o.OtpCode == loginRequest.OtpCode &&
                                               o.ExpiryTime > DateTime.Now);
 
