@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using DoctorateDrive.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,4 +24,24 @@ public class OtpVerification
 
     [ForeignKey("UserId")]
     public virtual User User { get; set; }
+=======
+﻿using System;
+using System.Collections.Generic;
+
+namespace DoctorateDrive.Models;
+
+public partial class OtpVerification
+{
+    public int OtpId { get; set; }
+
+    public string OtpCode { get; set; } = null!;
+
+    public DateTime ExpiryTime { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public int? UserId { get; set; }
+
+    public virtual User? User { get; set; }
+>>>>>>> 90b09ce49e01b7f3a241324b844c652d86626344
 }

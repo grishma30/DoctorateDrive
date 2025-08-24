@@ -1,41 +1,31 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
-namespace DoctorateDrive.Models
+namespace DoctorateDrive.Models;
+
+public partial class User
 {
-    [Table("Users")]
-    public class User
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
+    public int UserId { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string FullName { get; set; } = string.Empty;
+    public string FullName { get; set; } = null!;
 
-        [Required]
-        [StringLength(100)]
-        public string EmailId { get; set; } = string.Empty;
+    public string EmailId { get; set; } = null!;
 
-        [Required]
-        [StringLength(15)]
-        public string MobileNumber { get; set; } = string.Empty;
+    public string MobileNumber { get; set; } = null!;
 
-        [Required]
-        public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
-        [Required]
-        public DateTime UpdatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
-        // Additional properties for application logic
-        [NotMapped]
-        public string Role { get; set; } = "User";
+    public virtual ICollection<OtpVerification> OtpVerifications { get; set; } = new List<OtpVerification>();
 
+<<<<<<< HEAD
         [NotMapped]
         public string PasswordHash { get; set; } = string.Empty;
 
         public string? JWTtoken { get; set; }
     }
+=======
+    public virtual ICollection<StudentDetail> StudentDetails { get; set; } = new List<StudentDetail>();
+>>>>>>> 90b09ce49e01b7f3a241324b844c652d86626344
 }

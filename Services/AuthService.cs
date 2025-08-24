@@ -1,4 +1,4 @@
-﻿using DoctorateDrive.Data;
+﻿
 using DoctorateDrive.DTOs;
 using DoctorateDrive.Models;
 using DoctorateDrive.Helpers;
@@ -156,9 +156,12 @@ namespace DoctorateDrive.Services
                 // Remove existing OTPs for this user
                 var existingOtps = _context.OtpVerifications
                     .Where(o => o.UserId == user.UserId);
+<<<<<<< HEAD
 
                 var existingCount = existingOtps.Count();
                 _logger.LogDebug("Removing {Count} existing OTPs for user {UserId}", existingCount, user.UserId);
+=======
+>>>>>>> 90b09ce49e01b7f3a241324b844c652d86626344
 
                 _context.OtpVerifications.RemoveRange(existingOtps);
 
