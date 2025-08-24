@@ -81,8 +81,7 @@ namespace DoctorateDrive.Services
             try
             {
                 var user = await _context.Users
-                    .FirstOrDefaultAsync(u => u.EmailId == otpRequest.EmailId ||
-                                              u.MobileNumber == otpRequest.MobileNumber);
+                    .FirstOrDefaultAsync(u => u.EmailId == otpRequest.EmailId);
 
                 if (user == null)
                 {
@@ -221,7 +220,7 @@ namespace DoctorateDrive.Services
                 {
                     FullName = user.FullName,
                     EmailId = user.EmailId,
-                    MobileNumber = user.MobileNumber
+                    
                 };
 
                 return await GenerateOtpAsync(otpRequest);

@@ -21,6 +21,8 @@ builder.Services.AddSingleton<JWTHelpers>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+
+
 // Add CORS for Postman testing
 builder.Services.AddCors(options =>
 {
@@ -36,7 +38,23 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
+
+app.UseStaticFiles(); // Use if you have CSS/JS/images
+
+app.UseRouting();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();
+
+
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
@@ -44,6 +62,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
