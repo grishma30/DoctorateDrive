@@ -35,5 +35,7 @@ namespace DoctorateDrive.Models
 
         [NotMapped]
         public string PasswordHash { get; set; } = string.Empty;
+
+        public string? JWTtoken { get; set; }
     }
 }
