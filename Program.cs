@@ -21,7 +21,9 @@ builder.Services.AddSingleton<JWTHelpers>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-
+// Register student + document related
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
 
 // Add CORS for Postman testing
 builder.Services.AddCors(options =>

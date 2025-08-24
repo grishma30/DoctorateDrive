@@ -43,10 +43,15 @@ public partial class DoctorateDriveContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
 
-            entity.HasOne(d => d.DocumentNavigation).WithOne(p => p.Document)
+            entity.HasOne(d => d.DocumentNavigation).WithOne(p => p.DocumentDocumentNavigation)
                 .HasForeignKey<Document>(d => d.DocumentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StudentDetails_Documents");
+
+            entity.HasOne(d => d.Student).WithMany(p => p.DocumentStudents)
+                .HasForeignKey(d => d.StudentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_doc_studentDetails");
         });
 
         modelBuilder.Entity<OtpVerification>(entity =>
