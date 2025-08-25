@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DoctorateDrive.Models;
 
@@ -20,13 +19,5 @@ public partial class User
 
     public virtual ICollection<OtpVerification> OtpVerifications { get; set; } = new List<OtpVerification>();
 
-
-        [NotMapped]
-        public string PasswordHash { get; set; } = string.Empty;
-
-        public string? JWTtoken { get; set; }
-    
-
     public virtual ICollection<StudentDetail> StudentDetails { get; set; } = new List<StudentDetail>();
-
 }
