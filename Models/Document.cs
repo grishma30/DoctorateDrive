@@ -16,6 +16,4 @@ public partial class Document
     public DateTime UploadedDate { get; set; }
 
     public virtual StudentDetail DocumentNavigation { get; set; } = null!;
-
-    public virtual StudentDetail Student { get; set; } = null!;
 }

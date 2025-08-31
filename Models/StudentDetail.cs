@@ -61,9 +61,7 @@ public partial class StudentDetail
 
     public string GuardianMobileNumber { get; set; } = null!;
 
-    public virtual Document? DocumentDocumentNavigation { get; set; }
-
-    public virtual ICollection<Document> DocumentStudents { get; set; } = new List<Document>();
+    public virtual Document? Document { get; set; }
 
     public virtual User User { get; set; } = null!;
 }

@@ -1,8 +1,9 @@
 ﻿
 using DoctorateDrive.DTOs;
-using DoctorateDrive.Models;
+//using DoctorateDrive.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
+using DoctorateDrive.Data;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace DoctorateDrive.Services
                     };
                 }
 
-                var newUser = new User
+                var newUser = new DoctorateDrive.Models.User
                 {
                     FullName = registerRequest.FullName,
                     EmailId = registerRequest.EmailId,
@@ -102,7 +103,7 @@ namespace DoctorateDrive.Services
                 _context.OtpVerifications.RemoveRange(existingOtps);
 
                 // Create new OTP record
-                var otpVerification = new OtpVerification
+                var otpVerification = new DoctorateDrive.Models.OtpVerification
                 {
                     UserId = user.UserId,
                     OtpCode = otpCode,
