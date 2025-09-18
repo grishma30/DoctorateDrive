@@ -1,4 +1,6 @@
 using DoctorateDrive.Data;
+
+using DoctorateDrive.Models;
 using DoctorateDrive.Helpers;
 using DoctorateDrive.Services;
 using DoctorateDrive.Repositories;
@@ -9,8 +11,10 @@ using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
-builder.Services.AddDbContext<DoctorateDriveContext>(options =>
+builder.Services.AddDbContext<DoctorateDrive.Data.DoctorateDriveContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 // Configure JwtSettings - This will automatically read from environment variables
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
@@ -21,7 +25,8 @@ builder.Services.AddSingleton(resolver =>
 builder.Services.AddSingleton<JWTHelpers>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentService, StudentService>();
 
 
 // Add CORS for Postman testing
@@ -44,10 +49,13 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+app.UseCors("AllowAll");
+app.UseAuthentication();
 app.UseStaticFiles(); // Use if you have CSS/JS/images
 
 app.UseRouting();
-app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",
@@ -66,8 +74,7 @@ if (app.Environment.IsDevelopment())
 
 
 
-app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+
 app.UseAuthorization();
 app.MapControllers();
 

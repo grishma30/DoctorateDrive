@@ -4,6 +4,7 @@ using DoctorateDrive.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorateDrive.Migrations.DoctorateDrive
 {
     [DbContext(typeof(DoctorateDriveContext))]
-    partial class DoctorateDriveContextModelSnapshot : ModelSnapshot
+    [Migration("20250915074741_AddAddressToStudentDetails")]
+    partial class AddAddressToStudentDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +53,7 @@ namespace DoctorateDrive.Migrations.DoctorateDrive
 
                     b.HasKey("DocumentId");
 
-                    b.ToTable("Documents", (string)null);
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("DoctorateDrive.Models.OtpVerification", b =>
@@ -82,7 +85,7 @@ namespace DoctorateDrive.Migrations.DoctorateDrive
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OtpVerifications", (string)null);
+                    b.ToTable("OtpVerifications");
                 });
 
             modelBuilder.Entity("DoctorateDrive.Models.PasswordVerification", b =>
@@ -265,7 +268,7 @@ namespace DoctorateDrive.Migrations.DoctorateDrive
                     b.HasIndex(new[] { "EmailId" }, "UQ_Users_Email")
                         .IsUnique();
 
-                    b.ToTable("StudentDetails", (string)null);
+                    b.ToTable("StudentDetails");
                 });
 
             modelBuilder.Entity("DoctorateDrive.Models.User", b =>
@@ -300,7 +303,7 @@ namespace DoctorateDrive.Migrations.DoctorateDrive
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DoctorateDrive.Models.Document", b =>

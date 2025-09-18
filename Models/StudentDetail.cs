@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DoctorateDrive.Models;
 
@@ -8,6 +9,9 @@ public partial class StudentDetail
     public int StudentId { get; set; }
 
     public int UserId { get; set; }
+
+    [Required]
+    public string ApplicationId { get; set; }
 
     public string FirstName { get; set; } = null!;
 
