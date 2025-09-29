@@ -17,6 +17,8 @@ public partial class User
 
     public DateTime UpdatedAt { get; set; }
 
+    public string? Jwttoken { get; set; }
+
     public virtual ICollection<OtpVerification> OtpVerifications { get; set; } = new List<OtpVerification>();
 
     public virtual ICollection<StudentDetail> StudentDetails { get; set; } = new List<StudentDetail>();

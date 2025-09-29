@@ -13,6 +13,7 @@ namespace DoctorateDrive.Data
         // Only include DbSets for entities that exist in your database
         public DbSet<User> Users { get; set; }
         public DbSet<OtpVerification> OtpVerifications { get; set; }
+
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<PasswordVerification> PasswordVerifications { get; set; }
 
@@ -32,9 +33,11 @@ namespace DoctorateDrive.Data
                 entity.Property(u => u.UpdatedAt).HasDefaultValueSql("getdate()");
             });
 
+
             // OtpVerification entity configuration
             modelBuilder.Entity<OtpVerification>(entity =>
             {
+                entity.ToTable("OtpVerification");
                 entity.HasKey(o => o.OtpId);
                 entity.Property(o => o.CreatedAt).HasDefaultValueSql("getdate()");
                 entity.Property(o => o.ExpiryTime).HasDefaultValueSql("getdate()");
@@ -55,10 +58,10 @@ namespace DoctorateDrive.Data
                     .HasDefaultValueSql("(getdate())")
                     .HasColumnType("datetime");
 
-                entity.HasOne(d => d.DocumentNavigation).WithOne(p => p.Document)
-                    .HasForeignKey<Document>(d => d.DocumentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_StudentDetails_Documents");
+                //entity.HasOne(d => d.DocumentNavigation).WithOne(p => p.Document)
+                //    .HasForeignKey<Document>(d => d.DocumentId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_StudentDetails_Documents");
             });
 
             modelBuilder.Entity<PasswordVerification>(entity =>
