@@ -177,3 +177,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
+dropdownMenu.querySelectorAll('[data-os]').forEach(item => {
+    item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const category = item.getAttribute('data-category');
+        const os = item.getAttribute('data-os');
+        // Update button text
+        dropdownToggle.textContent = `${category}: ${os}`;
+        // Update display
+        selectedOSDisplay.textContent = `Selected: ${category} - ${os}`;
+        // Store values in hidden inputs for form submission
+        document.getElementById('osCategory').value = category;
+        document.getElementById('osValue').value = os;
+        // Hide dropdown
+        dropdownMenu.classList.remove('show');
+        // Trigger change event if needed
+        const event = new Event('change');
+        dropdownToggle.dispatchEvent(event);
+    });
+});

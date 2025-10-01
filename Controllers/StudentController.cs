@@ -1,12 +1,14 @@
 ﻿
+using DoctorateDrive.Data;
 using DoctorateDrive.DTOs;
+using DoctorateDrive.Models;
 using DoctorateDrive.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorateDrive.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class StudentController : Controller
     {
         private readonly IStudentService _service;
@@ -14,17 +16,18 @@ namespace DoctorateDrive.Controllers
         public StudentController(IStudentService service)
         {
             _service = service;
+           
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var students = _service.GetAllStudents();
+            var students = await _service.GetAllAsync();
             return View(students);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var student = _service.GetStudent(id);
+            var student = await _service.GetByIdAsync(id);
             if (student == null) return NotFound();
             return View(student);
         }
@@ -33,21 +36,51 @@ namespace DoctorateDrive.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(StudentDetailDto dto)
+        public async Task<IActionResult> Create(StudentDetailDto dto)
         {
             if (ModelState.IsValid)
             {
-                // assume logged-in user's ID is stored in Claims
+
                 int userId = int.Parse(User.FindFirst("UserId").Value);
-                _service.CreateStudent(dto, userId);
+                // Check if mobile is verified
+                var student = await _service.GetByUserIdAsync(userId); // implement this method in StudentService
+                if (student != null && !student.IsMobileVerified)
+                {
+                    ModelState.AddModelError("", "Please verify your mobile number before submitting.");
+                    return View(dto);
+                }
+
+                await _service.CreateStudentAsync(dto, userId);
                 return RedirectToAction(nameof(Index));
             }
             return View(dto);
         }
 
-        public IActionResult Edit(int id)
+        [HttpPost]
+        public async Task<IActionResult> SendOtp([FromForm] string mobileNumber)
         {
-            var student = _service.GetStudent(id);
+            int userId = int.Parse(User.FindFirst("UserId").Value);
+            var otpCode = await _service.SendOtpAsync(userId, mobileNumber);
+            return Ok(new { message = "OTP sent successfully." });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> VerifyOtp([FromForm] string otpInput)
+        {
+            int userId = int.Parse(User.FindFirst("UserId").Value);
+            bool isVerified = await _service.VerifyOtpAsync(userId, otpInput);
+
+            if (isVerified)
+                return Ok(new { message = "OTP verified successfully." });
+            else
+                return BadRequest(new { message = "Invalid or expired OTP." });
+        }
+
+
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var student = await _service.GetByIdAsync(id);
             if (student == null) return NotFound();
 
             var dto = new StudentDetailDto
@@ -84,28 +117,28 @@ namespace DoctorateDrive.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, StudentDetailDto dto)
+        public async Task<IActionResult> Edit(int id, StudentDetailDto dto)
         {
             if (ModelState.IsValid)
             {
-                _service.UpdateStudent(id, dto);
+                await _service.UpdateStudentAsync(id, dto);
                 return RedirectToAction(nameof(Index));
             }
             return View(dto);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var student = _service.GetStudent(id);
+            var student = await _service.GetByIdAsync(id);
             if (student == null) return NotFound();
             return View(student);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            _service.DeleteStudent(id);
+            await _service.DeleteStudentAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

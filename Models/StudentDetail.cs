@@ -62,6 +62,9 @@ public partial class StudentDetail
     public string GuardianMobileNumber { get; set; } = null!;
 
     public string ApplicationId { get; set; } = null!;
+    public bool IsMobileVerified { get; set; } = false;
 
+
+    public Document? Documents { get; set; }
     public virtual User User { get; set; } = null!;
 }

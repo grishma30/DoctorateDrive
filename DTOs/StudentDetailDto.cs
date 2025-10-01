@@ -4,6 +4,7 @@
     {
         public int UserId { get; set; }   // from logged-in user
 
+        // Personal Details
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -19,6 +20,8 @@
         public string FeesPaid { get; set; }
         public string WhatsappNumber { get; set; }
         public string EmailId { get; set; }
+
+        // Guardian & Address
         public string Country { get; set; }
         public string State { get; set; }
         public string City { get; set; }
@@ -28,5 +31,12 @@
         public string RelationWithGuardian { get; set; }
         public string GuardianEmail { get; set; }
         public string GuardianMobileNumber { get; set; }
+        public bool IsMobileVerified { get; set; }
+
+
+        //public string OsCategory { get; set; }
+        //public string OsValue { get; set; }
+
+        public StudentDocumentDto Documents { get; set; }
     }
 }

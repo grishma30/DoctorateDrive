@@ -24,7 +24,7 @@
     <div class="container my-5">
         <div class="card p-4">
             <!-- Use asp-action, asp-controller if you want post to an action, otherwise keep as is -->
-            <form id="registrationForm" method="post" enctype="multipart/form-data">
+            <form asp-action="Create" asp-controller="Student" method="post" enctype="multipart/form-data">
                 <!-- Academic Level -->
                 <fieldset class="mb-4">
                     <legend><span class="legend-label">Academic Level</span></legend>
@@ -237,41 +237,41 @@
                         </div>
                     </div>
                 </fieldset>
-                
+
                 <!-- drop down -->
                 <fieldset class="mb-4">
-                <div class="dropdown mb-4">
-                    <button class="btn btn-light dropdown-toggle" type="button" id="osDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        Choose your OS
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="osDropdown">
-                        <li class="dropdown-item dropdown-submenu">
-                            <a class="dropdown-item" href="#" data-category="PC">PC</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" data-os="Windows" data-category="PC">Windows</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Linux" data-category="PC">Linux</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-item dropdown-submenu">
-                            <a class="dropdown-item" href="#" data-category="Mac">Mac</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" data-os="Big Sur" data-category="Mac">Big Sur</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Catalina" data-category="Mac">Catalina</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Mojave" data-category="Mac">Mojave</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="High Sierra" data-category="Mac">High Sierra</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Sierra" data-category="Mac">Sierra</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="El Capitan" data-category="Mac">El Capitan</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Yosemite" data-category="Mac">Yosemite</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-item dropdown-submenu">
-                            <a class="dropdown-item" href="#" data-category="Other">Other</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" data-os="Ubuntu" data-category="Other">Ubuntu</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Fedora" data-category="Other">Fedora</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <div class="dropdown mb-4">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="osDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Choose your OS
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="osDropdown">
+                            <li class="dropdown-item dropdown-submenu">
+                                <a class="dropdown-item" href="#" data-category="PC">PC</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-os="Windows" data-category="PC">Windows</a></li>
+                                    <li><a class="dropdown-item" href="#" data-os="Linux" data-category="PC">Linux</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-item dropdown-submenu">
+                                <a class="dropdown-item" href="#" data-category="Mac">Mac</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-os="Big Sur" data-category="Mac">Big Sur</a></li>
+                                    <li><a class="dropdown-item" href="#" data-os="Catalina" data-category="Mac">Catalina</a></li>
+                                    <li><a class="dropdown-item" href="#" data-os="Mojave" data-category="Mac">Mojave</a></li>
+                                    <li><a class="dropdown-item" href="#" data-os="High Sierra" data-category="Mac">High Sierra</a></li>
+                                    <li><a class="dropdown-item" href="#" data-os="Sierra" data-category="Mac">Sierra</a></li>
+                                    <li><a class="dropdown-item" href="#" data-os="El Capitan" data-category="Mac">El Capitan</a></li>
+                                    <li><a class="dropdown-item" href="#" data-os="Yosemite" data-category="Mac">Yosemite</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-item dropdown-submenu">
+                                <a class="dropdown-item" href="#" data-category="Other">Other</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-os="Ubuntu" data-category="Other">Ubuntu</a></li>
+                                    <li><a class="dropdown-item" href="#" data-os="Fedora" data-category="Other">Fedora</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                         <!-- Display selected OS -->
                         <div id="selectedOS" class="mt-2"></div>
                         <!-- Hidden input to store selected OS for form submission -->
