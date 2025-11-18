@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Registration Successful";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="~/css/register.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <div class="login-wrapper">
+            <div class="logo-section">
+                <div class="charusat-logo">
+                    <img src="~/images/logo.png" alt="CHARUSAT Logo" width="200" />
+                </div>
+                <div class="logo-text">
+                    <h1>Registration Successful!</h1>
+                    <p>Welcome to CHARUSAT</p>
+                </div>
+            </div>
+
+            <div class="form-section text-center">
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle fa-3x mb-3"></i>
+                    <h4>Welcome @ViewBag.UserName!</h4>
+                    <p>@ViewBag.SuccessMessage</p>
+                    <hr>
+                    <p><strong>Check your email:</strong> @ViewBag.UserEmail</p>
+                    <small class="text-muted">OTP expires in 10 minutes</small>
+                </div>
+
+                <div class="mt-4">
+                    <p>Redirecting to login in <span id="countdown">5</span> seconds...</p>
+                    <a asp-action="Login" asp-route-email="@ViewBag.UserEmail" class="btn login-btn">
+                        <i class="fas fa-sign-in-alt me-2"></i>Go to Login Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let countdown = 5;
+        const countdownElement = document.getElementById('countdown');
+
+        const timer = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+
+            if (countdown <= 0) {
+                clearInterval(timer);
+                window.location.href = '@Url.Action("Login", "Home", new { email = ViewBag.UserEmail })';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -4,10 +4,10 @@ namespace DoctorateDrive.DTOs
 {
     public class LoginRequestDto
     {
-        [Required]
+        [Required(ErrorMessage = "The EmailOrMobile field is required.")]
         public string EmailOrMobile { get; set; } = string.Empty;
 
-        [Required]
-        public string OtpCode { get; set; } = string.Empty;  // Using OtpCode, not Otp
+        [Required(ErrorMessage = "The OTP code is required.")]
+        public string OtpCode { get; set; } = string.Empty;
     }
 }

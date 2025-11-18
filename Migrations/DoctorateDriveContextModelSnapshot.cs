@@ -60,7 +60,7 @@ namespace DoctorateDrive.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("OtpVerification", b =>
@@ -93,7 +93,7 @@ namespace DoctorateDrive.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OtpVerification");
+                    b.ToTable("OtpVerification", (string)null);
                 });
 
             modelBuilder.Entity("OtpVerification", b =>

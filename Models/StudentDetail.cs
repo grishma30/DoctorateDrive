@@ -8,15 +8,14 @@ namespace DoctorateDrive.Models
     public class StudentDetail
     {
         [Key]
-        public int StudentId { get; set; }
 
-        [Required]
+        [ForeignKey("User")]
         public int UserId { get; set; }
 
         [Required, StringLength(50)]
         public string FirstName { get; set; } = string.Empty;
 
-        [Required, StringLength(50)]
+        [StringLength(50)]
         public string MiddleName { get; set; } = string.Empty;
 
         [Required, StringLength(50)]
@@ -48,6 +47,20 @@ namespace DoctorateDrive.Models
 
         public bool GATEQualified { get; set; }
 
+        [StringLength(50)]
+        public string? PreferredInstitute { get; set; }
+
+        [StringLength(100)]
+        public string? PreferredSpecialization { get; set; }
+
+
+        // NEW FIELDS - Added
+        public string? GraduateQualification { get; set; }
+        public string? GraduateCertificatePath { get; set; }
+        public string? PostGraduateQualification { get; set; }
+        public string? PostGraduateCertificatePath { get; set; }
+        public string? GateCertificatePath { get; set; }
+
         [Required, StringLength(10)]
         public string FeesPaid { get; set; } = string.Empty;
 
@@ -78,19 +91,33 @@ namespace DoctorateDrive.Models
         [Required, StringLength(50)]
         public string RelationWithGuardian { get; set; } = string.Empty;
 
-        [Required, StringLength(100)]
+        [StringLength(100)]
         public string GuardianEmail { get; set; } = string.Empty;
 
-        [Required, StringLength(15)]
+        [StringLength(15)]
         public string GuardianMobileNumber { get; set; } = string.Empty;
 
-        // Additional properties based on errors, added with correct casing
+        [StringLength(50)]
         public string Document { get; set; } = string.Empty;
-        public string Pin { get; set; } = string.Empty;
-        public bool Gatequalified { get; set; }
 
-        // Navigation property
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        [NotMapped]
+        public string Pin
+        {
+            get => PIN;
+            set => PIN = value;
+        }
+
+        [NotMapped]
+        public bool Gatequalified
+        {
+            get => GATEQualified;
+            set => GATEQualified = value;
+        }
+
         [ForeignKey("UserId")]
-        public virtual User User { get; set; } = null!;
+        public virtual User? User { get; set; }
     }
 }

@@ -1,0 +1,558 @@
+﻿@model DoctorateDrive.Models.StudentApplicationViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Applicant Dashboard</title>
+    <link rel="stylesheet" href="~/css/register.css" />
+    <script src="/js/logout.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dashboard-container {
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-heavy);
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #1e5bb8 0%, #2980b9 100%);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .dashboard-title {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+            .dashboard-title i {
+                margin-right: 10px;
+            }
+
+        .applicant-section {
+            padding: 35px;
+        }
+
+        .applicant-card {
+            background: linear-gradient(135deg, #1e5bb8 0%, #2980b9 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(30, 91, 184, 0.2);
+        }
+
+        .app-id-header {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+            .app-id-header i {
+                margin-right: 10px;
+            }
+
+        .app-id-value {
+            background: white;
+            color: #1e5bb8;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .info-pill {
+            background: rgba(255,255,255,0.95);
+            color: #343a40;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+            .info-pill i {
+                margin-right: 12px;
+                color: #1e5bb8;
+                font-size: 1.1rem;
+            }
+
+        .edit-btn {
+            background: rgba(255,255,255,0.25);
+            color: white;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-left: auto;
+            transition: all 0.3s;
+        }
+
+            .edit-btn:hover {
+                background: #ff6b35;
+            }
+
+            .edit-btn i {
+                margin-right: 5px;
+            }
+
+        .otp-section {
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 10px;
+            display: none;
+        }
+
+            .otp-section.active {
+                display: block;
+            }
+
+        .otp-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #1e5bb8;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .otp-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .otp-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-send-otp {
+            background: #1e5bb8;
+            color: white;
+        }
+
+        .btn-verify-otp {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .otp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .btn-dashboard {
+            padding: 13px 30px;
+            font-weight: 600;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e5bb8 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #343a40;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-dashboard:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .alert {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+            .alert.show {
+                display: block;
+            }
+
+        .alert-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .alert-error {
+            background: #dc3545;
+            color: white;
+        }
+
+        @@media (max-width: 768px) {
+            .applicant-section {
+                padding: 20px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-dashboard {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+        <div class="floating-shape shape-5"></div>
+        <div class="floating-shape shape-6"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="dashboard-card">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">
+                    @* <i class="fas fa-user-graduate"></i>  *@
+                    Applicant Dashboard
+                </h1>
+            </div>
+
+            <div class="applicant-section">
+                <div id="alertBox"></div>
+
+                <div class="applicant-card">
+                    <div class="app-id-header">
+                        <i class="fas fa-id-card"></i> Applicant ID
+                    </div>
+
+                    <div class="app-id-value" id="applicationId">
+                        @Model.ApplicationId
+                    </div>
+
+                    <!-- Name -->
+                    <div class="info-pill">
+                        <i class="fas fa-user"></i>
+                        <span>@Model.FullName</span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="info-pill">
+                        <i class="fas fa-envelope"></i>
+                        <span id="currentEmail">@Model.Email</span>
+                        <button class="edit-btn" onclick="showEmailEdit()">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+
+                    <div id="emailOtpSection" class="otp-section">
+                        <input type="email" id="newEmail" class="otp-input" placeholder="Enter new email address" />
+                        <input type="text" id="emailOtp" class="otp-input" placeholder="Enter OTP" style="display:none;" />
+                        <div class="otp-buttons">
+                            <button class="otp-btn btn-send-otp" onclick="sendEmailOtp()">Send OTP</button>
+                            <button class="otp-btn btn-verify-otp" id="verifyEmailBtn" style="display:none;" onclick="verifyEmailOtp()">Verify OTP</button>
+                            <button class="otp-btn btn-cancel" onclick="hideEmailEdit()">Cancel</button>
+                        </div>
+                    </div>
+
+                    <!-- Mobile -->
+                    <div class="info-pill">
+                        <i class="fas fa-phone"></i>
+                        <span id="currentMobile">@Model.MobileNumber</span>
+                        <button class="edit-btn" onclick="showMobileEdit()">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+
+                    <div id="mobileOtpSection" class="otp-section">
+                        <input type="tel" id="newMobile" class="otp-input" placeholder="Enter new mobile number" maxlength="10" />
+                        <input type="text" id="mobileOtp" class="otp-input" placeholder="Enter OTP" style="display:none;" />
+                        <div class="otp-buttons">
+                            <button class="otp-btn btn-send-otp" onclick="sendMobileOtp()">Send OTP</button>
+                            <button class="otp-btn btn-verify-otp" id="verifyMobileBtn" style="display:none;" onclick="verifyMobileOtp()">Verify OTP</button>
+                            <button class="otp-btn btn-cancel" onclick="hideMobileEdit()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-dashboard btn-primary"
+                            onclick="window.location.href='@Url.Action("Payment", "Home", new { id = Model.ApplicationId })'">
+                        <i class="fas fa-credit-card"></i> PROCEED TO PAYMENT
+                    </button>
+
+                    @* <button class="btn-dashboard btn-secondary"
+                            onclick="window.location.href='@Url.Action("StudentDetails", "Home")'">
+                        <i class="fas fa-user-edit"></i> UPDATE DETAILS
+                    </button> *@
+                    <!-- Replace your current logout button with this -->
+                    <button type="button" onclick="logout()" class="btn btn-danger">
+                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const appId = '@Model.ApplicationId';
+
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.innerHTML = `<div class="alert alert-${type} show">${message}</div>`;
+            setTimeout(() => {
+                alertBox.innerHTML = '';
+            }, 5000);
+        }
+
+        // EMAIL EDIT FUNCTIONS
+        function showEmailEdit() {
+            document.getElementById('emailOtpSection').classList.add('active');
+            document.getElementById('newEmail').value = '';
+            document.getElementById('emailOtp').value = '';
+            document.getElementById('emailOtp').style.display = 'none';
+            document.getElementById('verifyEmailBtn').style.display = 'none';
+        }
+
+        function hideEmailEdit() {
+            document.getElementById('emailOtpSection').classList.remove('active');
+        }
+
+        async function sendEmailOtp() {
+            const newEmail = document.getElementById('newEmail').value.trim();
+
+            if (!newEmail || !newEmail.includes('@@')) {
+                showAlert('Please enter a valid email address', 'error');
+                return;
+            }
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('newEmail', newEmail);
+                formData.append('applicationId', appId);
+
+                const response = await fetch('/Home/SendEmailOtp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert(result.message, 'success');
+                    document.getElementById('emailOtp').style.display = 'block';
+                    document.getElementById('verifyEmailBtn').style.display = 'block';
+                } else {
+                    showAlert(result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('Failed to send OTP. Please try again.', 'error');
+            }
+        }
+
+        async function verifyEmailOtp() {
+            const newEmail = document.getElementById('newEmail').value.trim();
+            const otp = document.getElementById('emailOtp').value.trim();
+
+            if (!otp) {
+                showAlert('Please enter the OTP', 'error');
+                return;
+            }
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('applicationId', appId);
+                formData.append('newEmail', newEmail);
+                formData.append('otp', otp);
+
+                const response = await fetch('/Home/UpdateEmail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert(result.message, 'success');
+                    document.getElementById('currentEmail').textContent = newEmail;
+                    hideEmailEdit();
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    showAlert(result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('Failed to verify OTP. Please try again.', 'error');
+            }
+        }
+
+        // MOBILE EDIT FUNCTIONS
+        function showMobileEdit() {
+            document.getElementById('mobileOtpSection').classList.add('active');
+            document.getElementById('newMobile').value = '';
+            document.getElementById('mobileOtp').value = '';
+            document.getElementById('mobileOtp').style.display = 'none';
+            document.getElementById('verifyMobileBtn').style.display = 'none';
+        }
+
+        function hideMobileEdit() {
+            document.getElementById('mobileOtpSection').classList.remove('active');
+        }
+
+        async function sendMobileOtp() {
+            const newMobile = document.getElementById('newMobile').value.trim();
+
+            if (!newMobile || newMobile.length !== 10 || isNaN(newMobile)) {
+                showAlert('Please enter a valid 10-digit mobile number', 'error');
+                return;
+            }
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('newMobile', newMobile);
+                formData.append('applicationId', appId);
+
+                const response = await fetch('/Home/SendMobileOtp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert(result.message, 'success');
+                    document.getElementById('mobileOtp').style.display = 'block';
+                    document.getElementById('verifyMobileBtn').style.display = 'block';
+                } else {
+                    showAlert(result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('Failed to send OTP. Please try again.', 'error');
+            }
+        }
+
+        async function verifyMobileOtp() {
+            const newMobile = document.getElementById('newMobile').value.trim();
+            const otp = document.getElementById('mobileOtp').value.trim();
+
+            if (!otp) {
+                showAlert('Please enter the OTP', 'error');
+                return;
+            }
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('applicationId', appId);
+                formData.append('newMobile', newMobile);
+                formData.append('otp', otp);
+
+                const response = await fetch('/Home/UpdateMobile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert(result.message, 'success');
+                    document.getElementById('currentMobile').textContent = newMobile;
+                    hideMobileEdit();
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    showAlert(result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('Failed to verify OTP. Please try again.', 'error');
+            }
+        }
+        function logout() {
+            // Clear all JWT tokens
+            localStorage.removeItem('token');
+            localStorage.removeItem('jwtToken');
+            localStorage.removeItem('authToken');
+            localStorage.clear();
+            sessionStorage.clear();
+
+            // Redirect to MVC Login action (NOT login.html)
+            window.location.href = '/Home/Login'; // Change 'Home' to your actual controller name
+        }
+   
+
+    </script>
+</body>
+</html>

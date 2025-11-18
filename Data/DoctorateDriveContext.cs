@@ -9,17 +9,18 @@ namespace DoctorateDrive.Data
         {
         }
 
-        // Only include DbSets for entities that exist in your database
         public DbSet<User> Users { get; set; }
         public DbSet<OtpVerification> OtpVerifications { get; set; }
+        public DbSet<StudentDetail> StudentDetails { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
-        // Remove any references to StudentDetail, Document, etc. if they don't exist
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // User entity configuration
+            // User configuration
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(u => u.UserId);
@@ -27,7 +28,7 @@ namespace DoctorateDrive.Data
                 entity.Property(u => u.UpdatedAt).HasDefaultValueSql("getdate()");
             });
 
-            // OtpVerification entity configuration
+            // OtpVerification configuration
             modelBuilder.Entity<OtpVerification>(entity =>
             {
                 entity.HasKey(o => o.OtpId);
@@ -35,8 +36,22 @@ namespace DoctorateDrive.Data
                 entity.Property(o => o.ExpiryTime).HasDefaultValueSql("getdate()");
             });
 
-            // Remove ALL configurations for non-existent entities
-            // like StudentDetail, Document, PasswordVerification, etc.
+            // Payment entity configuration
+            //modelBuilder.Entity<Payment>(entity =>
+            //{
+            //    entity.HasKey(e => e.PaymentId);
+            //    entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
+            //    entity.Property(e => e.PaymentDate).HasDefaultValueSql("getdate()");
+            //});
+
+            // StudentDetail configuration - UserId is PRIMARY KEY
+            modelBuilder.Entity<StudentDetail>(entity =>
+            {
+                entity.HasKey(s => s.UserId);  // ✅ UserId is the primary key
+                entity.HasOne(s => s.User)
+                      .WithOne()
+                      .HasForeignKey<StudentDetail>(s => s.UserId);
+            });
         }
     }
 }

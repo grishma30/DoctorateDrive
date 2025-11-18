@@ -1,4 +1,5 @@
-﻿@{
+﻿@model DoctorateDrive.DTOs.RegisterRequestDto
+@{
     ViewData["Title"] = "CHARUSAT - Registration Portal";
 }
 
@@ -13,15 +14,6 @@
     <link href="~/css/register.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="background-animation">
-        <div class="floating-shape shape-1"></div>
-        <div class="floating-shape shape-2"></div>
-        <div class="floating-shape shape-3"></div>
-        <div class="floating-shape shape-4"></div>
-        <div class="floating-shape shape-5"></div>
-    </div>
-
     <!-- Main Container -->
     <div class="main-container">
         <div class="login-wrapper">
@@ -44,58 +36,42 @@
                 @if (ViewBag.ErrorMessage != null)
                 {
                     <div class="alert alert-danger" role="alert">
-                        @ViewBag.ErrorMessage
+                        <i class="fas fa-exclamation-triangle me-2"></i>@ViewBag.ErrorMessage
                     </div>
                 }
 
-                @if (ViewBag.SuccessMessage != null)
-                {
-                    <div class="alert alert-success" role="alert">
-                        @ViewBag.SuccessMessage
-                    </div>
-                }
-
-                <form asp-action="Register" method="post" id="registerForm" class="mt-4">
+                <form asp-action="Register" method="post" class="mt-4">
                     @Html.AntiForgeryToken()
 
                     <div class="mb-3">
-                        <label for="FullName" class="form-label">Full Name*</label>
+                        <label asp-for="FullName" class="form-label">Full Name*</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            <input type="text" class="form-control" id="FullName" name="FullName"
-                                   placeholder="Enter full name" required
-                                   value="@ViewBag.FullName">
+                            <input asp-for="FullName" class="form-control" placeholder="Enter full name" required>
                         </div>
-                        <div class="invalid-feedback">Please enter your full name</div>
-                        <div class="text-danger" id="fullNameError"></div>
+                        <span asp-validation-for="FullName" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Mobile" class="form-label">Mobile Number*</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                            <input type="tel" class="form-control" id="Mobile" name="Mobile"
-                                   placeholder="Enter mobile number" required
-                                   value="@ViewBag.Mobile">
-                        </div>
-                        <div class="invalid-feedback">Please enter a valid mobile number</div>
-                        <div class="text-danger" id="mobileError"></div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="Email" class="form-label">Email*</label>
+                        <label asp-for="EmailId" class="form-label">Email*</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                            <input type="email" class="form-control" id="Email" name="Email"
-                                   placeholder="Enter email" required
-                                   value="@ViewBag.Email">
+                            <input asp-for="EmailId" class="form-control" placeholder="Enter email" type="email" required>
                         </div>
-                        <div class="invalid-feedback">Please enter a valid email address</div>
-                        <div class="text-danger" id="emailError"></div>
+                        <span asp-validation-for="EmailId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="MobileNumber" class="form-label">Mobile Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            <input asp-for="MobileNumber" class="form-control" placeholder="Enter mobile number" type="tel">
+                        </div>
+                        <span asp-validation-for="MobileNumber" class="text-danger"></span>
                     </div>
 
                     <button type="submit" class="btn login-btn w-100 mb-3">
-                        <i class="fas fa-user-plus me-2"></i>Generate OTP
+                        <i class="fas fa-user-plus me-2"></i>Register & Send OTP
                     </button>
 
                     <div class="text-center">
@@ -108,23 +84,7 @@
         </div>
     </div>
 
-    <!-- Bottom Sliding Notification -->
-    <div class="sliding-notification">
-        <div class="sliding-content">
-            <i class="fas fa-graduation-cap"></i>
-            <span>Registration for Academic Year 2025-26 is now open!</span>
-            <span class="separator">•</span>
-            <span>Limited seats available - Register now!</span>
-            <i class="fas fa-graduation-cap"></i>
-            <span>Registration for Academic Year 2025-26 is now open!</span>
-            <span class="separator">•</span>
-            <span>Limited seats available - Register now!</span>
-        </div>
-    </div>
-
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js"></script>
-    <script src="~/js/register.js"></script>
 </body>
 </html>

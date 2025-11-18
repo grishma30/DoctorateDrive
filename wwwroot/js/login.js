@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var registerBtn = document.getElementById('registerBtn');
     if (registerBtn) {
         registerBtn.addEventListener('click', function () {
-            window.location.href = '@Url.Action("Register", "Home")';
+            window.location.href = '/Home/Index'; // or wherever you want to redirect after login
+
         });
     }
 
@@ -14,26 +15,18 @@ document.addEventListener('DOMContentLoaded', function () {
         getOtpBtn.addEventListener('click', function () {
             var emailMobile = document.getElementById('EmailMobile');
             if (emailMobile && emailMobile.value.trim() !== '') {
-                // Show loading state
                 getOtpBtn.disabled = true;
                 getOtpBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending OTP...';
 
-                // Simulate OTP sending (replace with actual AJAX call)
-                setTimeout(function () {
-                    // Reset button state
-                    getOtpBtn.disabled = false;
-                    getOtpBtn.innerHTML = '<i class="fas fa-mobile-alt me-2"></i>Get a new OTP';
+                sendOtpRequest(emailMobile.value);
 
-                    // Show success message
-                    showNotification('OTP sent successfully!', 'success');
-                }, 2000);
-
-                // In real implementation, make AJAX call to server
-                // sendOtpRequest(emailMobile.value);
+                // We handle button reset inside sendOtpRequest's promise handlers
             } else {
                 showNotification('Please enter email or mobile number first', 'error');
             }
         });
+
+
     }
 
     // Form validation
@@ -140,7 +133,6 @@ function showNotification(message, type) {
 
 // Function to send OTP request (to be implemented with actual API call)
 function sendOtpRequest(emailOrMobile) {
-    // Replace with actual AJAX call to your server
     fetch('/Account/SendOtp', {
         method: 'POST',
         headers: {
@@ -151,6 +143,9 @@ function sendOtpRequest(emailOrMobile) {
     })
         .then(response => response.json())
         .then(data => {
+            getOtpBtn.disabled = false;
+            getOtpBtn.innerHTML = '<i class="fas fa-mobile-alt me-2"></i>Get a new OTP';
+
             if (data.success) {
                 showNotification('OTP sent successfully!', 'success');
             } else {
@@ -158,7 +153,28 @@ function sendOtpRequest(emailOrMobile) {
             }
         })
         .catch(error => {
+            getOtpBtn.disabled = false;
+            getOtpBtn.innerHTML = '<i class="fas fa-mobile-alt me-2"></i>Get a new OTP';
+
             console.error('Error:', error);
             showNotification('An error occurred while sending OTP', 'error');
         });
+}
+
+function logout() {
+    // Remove JWT token from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('authToken');
+
+    // Remove from sessionStorage if used
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('jwtToken');
+
+    // Clear any other user data
+    localStorage.removeItem('userData');
+    localStorage.removeItem('userId');
+
+    // Redirect to login page
+    window.location.href = '/login.html';
 }

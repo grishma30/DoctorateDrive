@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4><i class="fas fa-tachometer-alt me-2"></i>Welcome to Dashboard</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>Login Successful!</strong> You are now logged in.
+                    </div>
+
+                    <p><strong>Email:</strong> @ViewBag.UserEmail</p>
+                    <p><strong>Login Time:</strong> @DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</p>
+
+                    <div class="mt-4">
+                        <a asp-action="Login" class="btn btn-danger">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,7 @@ namespace DoctorateDrive.DTOs
         [EmailAddress]
         public string EmailId { get; set; } = string.Empty;
 
-        [Required]
-        public string MobileNumber { get; set; } = string.Empty;
+        // Remove [Required] to make it optional
+        public string? MobileNumber { get; set; }
     }
 }

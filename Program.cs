@@ -4,30 +4,49 @@ using DoctorateDrive.Repositories;
 using DoctorateDrive.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// ============================================
+// DATABASE CONTEXT
+// ============================================
 builder.Services.AddDbContext<DoctorateDriveContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Configure Email Settings
+// ============================================
+// EMAIL SETTINGS (Register ONCE)
+// ============================================
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-builder.Services.AddSingleton(resolver =>
-    resolver.GetRequiredService<IOptions<EmailSettings>>().Value);
+builder.Services.AddScoped<DoctorateDrive.Helpers.IEmailService, DoctorateDrive.Helpers.EmailService>();
 
-// Register JWT Helper (IMPORTANT: This fixes the _configuration error)
+// ============================================
+// JWT HELPER
+// ============================================
 builder.Services.AddScoped<JWTHelpers>();
 
-// Register Application Services
+// ============================================
+// APPLICATION SERVICES (Register each ONCE)
+// ============================================
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
-// JWT Authentication Setup
+// ============================================
+// SESSION SUPPORT
+// ============================================
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// ============================================
+// JWT AUTHENTICATION
+// ============================================
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,7 +82,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Add CORS for API testing
+// ============================================
+// CORS POLICY
+// ============================================
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -74,16 +95,25 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Add MVC and API controllers
+// ============================================
+// MVC & API CONTROLLERS
+// ============================================
 builder.Services.AddControllersWithViews();
 
-// Add Swagger for API documentation
+// ============================================
+// SWAGGER (Development Only)
+// ============================================
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ============================================
+// BUILD THE APP
+// ============================================
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+// ============================================
+// CONFIGURE HTTP REQUEST PIPELINE
+// ============================================
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -104,11 +134,14 @@ app.UseRouting();
 // Enable CORS
 app.UseCors("AllowAll");
 
-// Authentication & Authorization (ORDER MATTERS!)
-app.UseAuthentication();  // Must come before UseAuthorization
+//  CRITICAL ORDER: Session BEFORE Authentication
+app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
 
-// Map routes
+// ============================================
+// MAP ROUTES
+// ============================================
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

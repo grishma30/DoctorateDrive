@@ -4,8 +4,8 @@ namespace DoctorateDrive.DTOs
 {
     public class ResendOtpRequestDto
     {
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Valid email address is required")]
-        public string EmailId { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Email address is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email format.")]
+        public string EmailAddress { get; set; } = string.Empty;
     }
 }

@@ -1,142 +1,181 @@
 ﻿@{
-    Layout = null; // Or specify your layout if you have one like _Layout.cshtml
+    Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Registration Form</title>
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <title>Student Registration Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/StudentDetails.css" />
 </head>
 <body>
-    <header class="header-logo">
-        <!-- Changed absolute Windows path to relative path assuming image is under wwwroot/images -->
-        <img src="~/image/logo__1_-removebg-preview.png" alt="Charusat Logo" class="header-logo-img" />
-
-    </header>
     <div class="container my-5">
         <div class="card p-4">
-            <!-- Use asp-action, asp-controller if you want post to an action, otherwise keep as is -->
-            <form id="registrationForm" method="post" enctype="multipart/form-data">
-                <!-- Academic Level -->
+            <h2 class="text-center mb-4">Student Details Form</h2>
+
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+            }
+
+            <form id="registrationForm"
+                  method="post"
+                  enctype="multipart/form-data"
+                  asp-action="StudentDetails"
+                  asp-controller="Home">
+
+                @Html.AntiForgeryToken()
+
+                <!-- ========================================== -->
+                <!-- ACADEMIC LEVEL SECTION -->
+                <!-- ========================================== -->
                 <fieldset class="mb-4">
-                    <legend><span class="legend-label">Academic Level</span></legend>
-                    <h3 class="mb-4">M.Tech CGPA Submission Form</h3>
+                    <legend>Academic Level</legend>
 
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label class="form-label" for="cgpaInput">Enter your M.Tech CGPA*</label>
+                            <label class="form-label" for="cgpaInput">M.Tech CGPA Gained*</label>
                             <input type="number" step="0.01" class="form-control" id="cgpaInput" name="cgpaInput" required />
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label class="form-label" for="totalCgpa">Enter Total CGPA*</label>
-                            <input type="number" step="0.01" class="form-control" id="totalCgpa" name="totalCgpa" required />
+                            <label class="form-label" for="totalCgpa">Total CGPA*</label>
+                            <input type="number" step="0.01" class="form-control" id="totalCgpa" name="totalCgpa" value="10" required />
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label class="form-label" for="equivalentPercentage">Enter Equivalent Percentage*</label>
-                            <input type="number" step="0.01" class="form-control" id="equivalentPercentage" name="equivalentPercentage" required />
+                            <label class="form-label" for="equivalentPercentage">Equivalent Percentage* <small class="text-muted">(Auto-calculated)</small></label>
+                            <input type="number" step="0.01" class="form-control" id="equivalentPercentage" name="equivalentPercentage" readonly required />
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label" for="graduateSelect">Select Qualification*</label>
-                        <div class="row">
-                            <div class="col-md-4 mb-2">
-                                <select class="form-select" id="graduateSelect" name="graduateSelect">
-                                    <option value="">Graduate</option>
-                                    <option value="BTech">B.Tech</option>
-                                    <option value="BE">B.E.</option>
-                                    <option value="BSc">B.Sc</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-2">
-                                <select class="form-select" id="postGraduateSelect" name="postGraduateSelect">
-                                    <option value="">Post Graduate</option>
-                                    <option value="MTech">M.Tech</option>
-                                    <option value="ME">M.E.</option>
-                                    <option value="MSc">M.Sc</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-2">
-                                <select class="form-select" id="gateSelect" name="gateSelect">
-                                    <option value="">Gate select</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
-                                </select>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Graduate Qualification*</label>
+                            <select class="form-select" id="graduateSelect" name="graduateSelect" required>
+                                <option value="">Select</option>
+                                <option value="B.Tech">B.Tech</option>
+                                <option value="BE">B.E.</option>
+                                <option value="B.Sc">B.Sc</option>
+                                <option value="BCA">BCA</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Post Graduate Qualification*</label>
+                            <select class="form-select" id="postGraduateSelect" name="postGraduateSelect" required>
+                                <option value="">Select</option>
+                                <option value="M.Tech">M.Tech</option>
+                                <option value="ME">M.E.</option>
+                                <option value="M.Sc">M.Sc</option>
+                                <option value="MCA">MCA</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">GATE Qualified?*</label>
+                            <select class="form-select" id="gateSelect" name="gateSelect" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
 
-                        <div id="graduateUpload" class="mt-2" style="display:none;">
-                            <label class="form-label" for="graduateCertificate">Upload Graduate Certificate*</label>
-                            <input type="file" class="form-control" id="graduateCertificate" name="graduateCertificate" required />
+                    <!-- Graduate Certificate Upload -->
+                    <div class="row mt-3" id="graduateUpload" style="display: none;">
+                        <div class="col-12">
+                            <label class="form-label">Upload Graduate Certificate/Marksheet*</label>
+                            <input type="file" class="form-control" id="graduateCertificate" name="graduateCertificate" accept=".pdf,.jpg,.jpeg,.png" />
+                            <small class="text-muted">Accepted: PDF, JPG, PNG (Max 5MB)</small>
                         </div>
-                        <div id="postGraduateUpload" class="mt-2" style="display:none;">
-                            <label class="form-label" for="postGraduateCertificate">Upload Post Graduate Certificate*</label>
-                            <input type="file" class="form-control" id="postGraduateCertificate" name="postGraduateCertificate" required />
-                        </div>
-                        <div id="gateUpload" class="mt-2" style="display:none;">
-                            <label class="form-label" for="gateCertificate">Upload GATE Certificate*</label>
-                            <input type="file" class="form-control" id="gateCertificate" name="gateCertificate" />
-                        </div>
-                        <!-- Conversion Certificate Upload -->
-                        <div class="col-md-4 mb-2">
-                            <label class="form-label" for="conversionCertificate">Upload Conversion Certificate*</label>
-                            <input type="file" class="form-control" id="conversionCertificate" name="conversionCertificate" required />
-                        </div>
+                    </div>
 
+                    <!-- Post Graduate Certificate Upload -->
+                    <div class="row mt-3" id="postGraduateUpload" style="display: none;">
+                        <div class="col-12">
+                            <label class="form-label">Upload Post Graduate Certificate/Marksheet*</label>
+                            <input type="file" class="form-control" id="postGraduateCertificate" name="postGraduateCertificate" accept=".pdf,.jpg,.jpeg,.png" />
+                            <small class="text-muted">Accepted: PDF, JPG, PNG (Max 5MB)</small>
+                        </div>
+                    </div>
+
+                    <!-- GATE Certificate Upload -->
+                    <div class="row mt-3" id="gateUpload" style="display: none;">
+                        <div class="col-12">
+                            <label class="form-label">Upload GATE Scorecard*</label>
+                            <input type="file" class="form-control" id="gateCertificate" name="gateCertificate" accept=".pdf,.jpg,.jpeg,.png" />
+                            <small class="text-muted">Accepted: PDF, JPG, PNG (Max 5MB)</small>
+                        </div>
                     </div>
                 </fieldset>
-                <!-- Personal Details -->
+
+                <!-- ========================================== -->
+                <!-- ACADEMIC PREFERENCE SECTION (NEW) -->
+                <!-- ========================================== -->
                 <fieldset class="mb-4">
-                    <legend><span class="legend-label">Personal Details</span></legend>
+                    <legend>Your Academic Preference</legend>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="preferredInstitute">Institute*</label>
+                            <select class="form-select" id="preferredInstitute" name="preferredInstitute" required>
+                                <option value="">Choose</option>
+                                <option value="CSPIT">CSPIT</option>
+                                <option value="IIIM">IIIM</option>
+                                <option value="CMPICA">CMPICA</option>
+                                <option value="PDPIAS">PDPIAS</option>
+                                <option value="BDPIS">BDPIS</option>
+                                <option value="ARIP">ARIP</option>
+                                <option value="RPCP">RPCP</option>
+                                <option value="MTIN">MTIN</option>
+                                <option value="DEPSTAR">DEPSTAR</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="preferredSpecialization">Specialization</label>
+                            <select class="form-select" id="preferredSpecialization" name="preferredSpecialization">
+                                <option value="">Choose Specialization</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- ========================================== -->
+                <!-- PERSONAL DETAILS SECTION -->
+                <!-- ========================================== -->
+                <fieldset class="mb-4">
+                    <legend>Personal Details</legend>
+
                     <div class="row mb-3">
                         <div class="col-md-4 mb-2">
-                            <label class="form-label" for="firstName">First/Your Name*</label>
-                            <input type="text" id="firstName" name="firstName" placeholder="first name" class="form-control" required />
+                            <label class="form-label" for="firstName">First Name*</label>
+                            <input type="text" id="firstName" name="firstName" class="form-control" required />
                         </div>
                         <div class="col-md-4 mb-2">
                             <label class="form-label" for="middleName">Middle Name</label>
-                            <input type="text" id="middleName" name="middleName" placeholder="Middle Name" class="form-control" />
+                            <input type="text" id="middleName" name="middleName" class="form-control" />
                         </div>
                         <div class="col-md-4 mb-2">
-                            <label class="form-label" for="lastName">Last Name/Surname*</label>
-                            <input type="text" id="lastName" name="lastName" class="form-control" placeholder="last name" required />
+                            <label class="form-label" for="lastName">Last Name*</label>
+                            <input type="text" id="lastName" name="lastName" class="form-control" required />
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <div class="col-md-4 mb-2">
-                            <label class="form-label" for="email">Email Id of Applicant*</label>
-                            <input type="email" id="email" name="email" placeholder="Email" class="form-control" required />
+                            <label class="form-label" for="email">Email*</label>
+                            <input type="email" id="email" name="email" class="form-control" required />
                         </div>
                         <div class="col-md-4 mb-2">
-                            <label class="form-label" for="mobileNumber">Mobile Number of Applicant*</label>
-                            <div class="input-group">
-                                <input type="tel" class="form-control" id="mobileNumber" name="mobileNumber" placeholder="Enter mobile number" required />
-                                <button class="btn btn-outline-secondary" type="button" id="sendOtpBtn">Send OTP</button>
-                            </div>
-
-                            <div class="mt-3" id="otpSection" style="display: none;">
-                                <label class="form-label" for="otpInput">Enter OTP</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="otpInput" name="otpInput" placeholder="Enter OTP" />
-                                    <button class="btn btn-outline-success" type="button" id="verifyOtpBtn">Verify OTP</button>
-                                </div>
-                                <p class="text-white mt-2" id="otpStatus"></p>
-                            </div>
+                            <label class="form-label" for="mobileNumber">Mobile Number*</label>
+                            <input type="tel" id="mobileNumber" name="mobileNumber" class="form-control" required />
                         </div>
-
                         <div class="col-md-4 mb-2">
-                            <label class="form-label" for="whatsappNumber">Whatsapp number of Applicant*</label>
-                            <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="Whatsapp number" class="form-control" required />
+                            <label class="form-label" for="whatsappNumber">WhatsApp Number*</label>
+                            <input type="tel" id="whatsappNumber" name="whatsappNumber" class="form-control" required />
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <div class="col-md-4 mb-2">
                             <label class="form-label" for="dob">Date of Birth*</label>
@@ -150,7 +189,6 @@
                                 <option>OBC</option>
                                 <option>SC</option>
                                 <option>ST</option>
-                                <option>Other</option>
                             </select>
                         </div>
                         <div class="col-md-4 mb-2">
@@ -162,15 +200,16 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label d-block">Gender*</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="female" value="Female" required />
-                            <label class="form-check-label" for="female">Female</label>
+                            <input class="form-check-input" type="radio" name="gender" id="male" value="Male" required />
+                            <label class="form-check-label" for="male">Male</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="male" value="Male" />
-                            <label class="form-check-label" for="male">Male</label>
+                            <input class="form-check-input" type="radio" name="gender" id="female" value="Female" />
+                            <label class="form-check-label" for="female">Female</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="gender" id="transgender" value="Transgender" />
@@ -178,16 +217,20 @@
                         </div>
                     </div>
                 </fieldset>
-                <!-- Guardian Details -->
+
+                <!-- ========================================== -->
+                <!-- GUARDIAN DETAILS SECTION -->
+                <!-- ========================================== -->
                 <fieldset class="mb-4">
-                    <legend><span class="legend-label">Guardian Details</span></legend>
+                    <legend>Guardian Details</legend>
+
                     <div class="row mb-3">
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="guardianName">Guardian Name*</label>
                             <input type="text" id="guardianName" name="guardianName" class="form-control" required />
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label class="form-label" for="relationWithApplicant">Relation with Applicant*</label>
+                            <label class="form-label" for="relationWithApplicant">Relation*</label>
                             <select class="form-select" id="relationWithApplicant" name="relationWithApplicant" required>
                                 <option value="">Select</option>
                                 <option>Father</option>
@@ -196,24 +239,25 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <div class="col-md-6 mb-2">
-                            <label class="form-label" for="guardianEmail">Email Id of Guardian</label>
+                            <label class="form-label" for="guardianEmail">Guardian Email</label>
                             <input type="email" id="guardianEmail" name="guardianEmail" class="form-control" />
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label class="form-label" for="guardianMobile">Mobile Number of Guardian</label>
+                            <label class="form-label" for="guardianMobile">Guardian Mobile</label>
                             <input type="tel" id="guardianMobile" name="guardianMobile" class="form-control" />
                         </div>
                     </div>
                 </fieldset>
-                <!-- Address Details -->
+
+                <!-- ========================================== -->
+                <!-- ADDRESS DETAILS SECTION -->
+                <!-- ========================================== -->
                 <fieldset class="mb-4">
-                    <legend><span class="legend-label">Address Details</span></legend>
-                    <div class="mb-3">
-                        <label class="form-label" for="address">Address*</label>
-                        <input type="text" id="address" name="address" class="form-control" required />
-                    </div>
+                    <legend>Address Details</legend>
+
                     <div class="row mb-3">
                         <div class="col-md-3 mb-2">
                             <label class="form-label" for="country">Country*</label>
@@ -232,112 +276,144 @@
                             <input type="text" id="district" name="district" class="form-control" required />
                         </div>
                         <div class="col-md-3 mb-2">
-                            <label class="form-label" for="city">City or Village*</label>
+                            <label class="form-label" for="city">City*</label>
                             <input type="text" id="city" name="city" class="form-control" required />
                         </div>
                     </div>
-                </fieldset>
-                
-                <!-- drop down -->
-                <fieldset class="mb-4">
-                <div class="dropdown mb-4">
-                    <button class="btn btn-light dropdown-toggle" type="button" id="osDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        Choose your OS
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="osDropdown">
-                        <li class="dropdown-item dropdown-submenu">
-                            <a class="dropdown-item" href="#" data-category="PC">PC</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" data-os="Windows" data-category="PC">Windows</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Linux" data-category="PC">Linux</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-item dropdown-submenu">
-                            <a class="dropdown-item" href="#" data-category="Mac">Mac</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" data-os="Big Sur" data-category="Mac">Big Sur</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Catalina" data-category="Mac">Catalina</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Mojave" data-category="Mac">Mojave</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="High Sierra" data-category="Mac">High Sierra</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Sierra" data-category="Mac">Sierra</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="El Capitan" data-category="Mac">El Capitan</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Yosemite" data-category="Mac">Yosemite</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-item dropdown-submenu">
-                            <a class="dropdown-item" href="#" data-category="Other">Other</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" data-os="Ubuntu" data-category="Other">Ubuntu</a></li>
-                                <li><a class="dropdown-item" href="#" data-os="Fedora" data-category="Other">Fedora</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                        <!-- Display selected OS -->
-                        <div id="selectedOS" class="mt-2"></div>
-                        <!-- Hidden input to store selected OS for form submission -->
-                        <input type="hidden" id="osCategory" name="osCategory" />
-                        <input type="hidden" id="osValue" name="osValue" />
-                    </div>
 
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="pin">PIN Code*</label>
+                            <input type="text" id="pin" name="pin" class="form-control" pattern="[0-9]{6}" maxlength="6" required />
+                        </div>
+                    </div>
                 </fieldset>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-info px-4">Submit</button>
-                    <button type="button" class="btn btn-dark px-4 ms-2">Logout</button>
-                    <button type="button" class="btn btn-primary px-4 ms-2">Back to Dashboard</button>
+                    <button type="submit" class="btn btn-primary btn-lg px-5">Submit</button>
                 </div>
             </form>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="~/js/StudentDetails.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const dropdownToggle = document.querySelector('#osDropdown');
-            const dropdownMenu = document.querySelector('.dropdown-menu');
-            const selectedOSDisplay = document.querySelector('#selectedOS');
-            const osCategoryInput = document.querySelector('#osCategory');
-            const osValueInput = document.querySelector('#osValue');
+        // ===== Auto-calculate CGPA percentage =====
+        function calculatePercentage() {
+            const cgpa = parseFloat(document.getElementById('cgpaInput').value) || 0;
+            const total = parseFloat(document.getElementById('totalCgpa').value) || 10;
+            if (cgpa && total) {
+                const percent = ((cgpa / total) * 100).toFixed(2);
+                document.getElementById('equivalentPercentage').value = percent;
+                if (percent < 60) {
+                    alert("⚠️ Your percentage is below 60%. You may not be eligible.");
+                }
+            }
+        }
 
-            // Handle submenu click to select OS
-            dropdownMenu.querySelectorAll('[data-os]').forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const category = item.getAttribute('data-category');
-                    const os = item.getAttribute('data-os');
-                    // Update button text
-                    dropdownToggle.textContent = `${category}: ${os}`;
-                    // Update display
-                    selectedOSDisplay.textContent = `Selected: ${category} - ${os}`;
-                    // Store values in hidden inputs for form submission
-                    osCategoryInput.value = category;
-                    osValueInput.value = os;
-                    // Hide dropdown
-                    dropdownMenu.classList.remove('show');
-                    // Trigger change event
-                    const event = new Event('change');
-                    dropdownToggle.dispatchEvent(event);
-                });
-            });
+        document.getElementById('cgpaInput').addEventListener('input', calculatePercentage);
+        document.getElementById('totalCgpa').addEventListener('input', calculatePercentage);
 
-            // Optional: Keep hover functionality for submenus
-            dropdownMenu.querySelectorAll('.dropdown-submenu .dropdown-item').forEach(item => {
-                item.addEventListener('mouseenter', (e) => {
-                    const submenu = item.nextElementSibling;
-                    if (submenu) {
-                        submenu.style.display = 'block';
-                        const parentRect = item.getBoundingClientRect();
-                        submenu.style.top = `${parentRect.top - dropdownMenu.getBoundingClientRect().top}px`;
-                        submenu.style.left = `${parentRect.width + 5}px`;
-                    }
+        // ===== Show/hide certificate uploads =====
+        document.getElementById('graduateSelect').addEventListener('change', function () {
+            const upload = document.getElementById('graduateUpload');
+            const input = document.getElementById('graduateCertificate');
+            if (this.value) {
+                upload.style.display = 'block';
+                input.required = true;
+            } else {
+                upload.style.display = 'none';
+                input.required = false;
+            }
+        });
+
+        document.getElementById('postGraduateSelect').addEventListener('change', function () {
+            const upload = document.getElementById('postGraduateUpload');
+            const input = document.getElementById('postGraduateCertificate');
+            if (this.value) {
+                upload.style.display = 'block';
+                input.required = true;
+            } else {
+                upload.style.display = 'none';
+                input.required = false;
+            }
+        });
+
+        document.getElementById('gateSelect').addEventListener('change', function () {
+            const upload = document.getElementById('gateUpload');
+            const input = document.getElementById('gateCertificate');
+            if (this.value === 'Yes') {
+                upload.style.display = 'block';
+                input.required = true;
+            } else {
+                upload.style.display = 'none';
+                input.required = false;
+            }
+        });
+
+        // ===== Academic Preference: Dynamic Specialization Dropdown =====
+        const specializationData = {
+            "CSPIT": [
+                "Civil Engineering",
+                "Computer Engineering",
+                "Electrical Engineering"
+            ],
+            "IIIM": [
+                "Marketing and General Management",
+                "Finance Management",
+                "Operations Management",
+                "Banking and Accounting",
+                "Business Analytics"
+            ],
+            "CMPICA": [],
+            "PDPIAS": [
+                "Physics",
+                "Chemical Sciences",
+                "Biological Sciences",
+                "Mathematical Sciences"
+            ],
+            "BDPIS": [
+                "Medical Imaging Technology (e.g., CT, MRI)",
+                "Optometry",
+                "Operation Theatre & Anesthesia Technology",
+                "Cancer Biology",
+                "Drug Discovery"
+            ],
+            "ARIP": [
+                "Physiotherapy"
+            ],
+            "RPCP": [
+                "Pharmaceutical Analysis",
+                "Pharmaceutical Chemistry",
+                "Pharmaceutics",
+                "Pharmacology",
+                "Clinical Pharmacy & Pharmacognosy",
+                "Pharmacognosy"
+            ],
+            "MTIN": [
+                "Nursing"
+            ],
+            "DEPSTAR": []
+        };
+
+        document.getElementById('preferredInstitute').addEventListener('change', function () {
+            const inst = this.value;
+            const specializationSelect = document.getElementById('preferredSpecialization');
+            specializationSelect.innerHTML = '<option value="">Choose Specialization</option>';
+
+            if (specializationData[inst] && specializationData[inst].length > 0) {
+                specializationData[inst].forEach(function (spec) {
+                    const opt = document.createElement('option');
+                    opt.value = spec;
+                    opt.textContent = spec;
+                    specializationSelect.appendChild(opt);
                 });
-                item.addEventListener('mouseleave', (e) => {
-                    const submenu = item.nextElementSibling;
-                    if (submenu) {
-                        submenu.style.display = 'none';
-                    }
-                });
-            });
+                specializationSelect.required = true;
+                specializationSelect.disabled = false;
+            } else {
+                specializationSelect.required = false;
+                specializationSelect.disabled = true;
+            }
         });
     </script>
 </body>
