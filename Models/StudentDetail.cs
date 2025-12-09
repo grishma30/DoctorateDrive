@@ -102,6 +102,9 @@ namespace DoctorateDrive.Models
         [StringLength(50)]
         public string Document { get; set; } = string.Empty;
 
+        [StringLength(50)]
+        public string? ApplicationId { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 

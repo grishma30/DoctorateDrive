@@ -212,7 +212,7 @@ namespace DoctorateDrive.Controllers
                 decimal.TryParse(form["equivalentPercentage"], out percentage);
 
                 // ❗ Eligibility check – minimum CGPA required is 6.0
-                if (cgpa < 6)
+                if (percentage < 6)
                 {
                     return BadRequest(new
                     {
@@ -229,7 +229,7 @@ namespace DoctorateDrive.Controllers
                 string preferredInstitute = form["preferredInstitute"].ToString().Trim();
                 string preferredSpecialization = form["preferredSpecialization"].ToString().Trim();
 
-                string appId = existingStudent?.Document ?? await GenerateAppIdAsync();
+                string appId = existingStudent?.ApplicationId ?? await GenerateAppIdAsync();
 
                 if (existingStudent != null)
                 {
@@ -257,6 +257,7 @@ namespace DoctorateDrive.Controllers
                     existingStudent.City = form["city"].ToString().Trim();
                     existingStudent.District = form["district"].ToString().Trim();
                     existingStudent.PIN = form["pin"].ToString().Trim();
+                    existingStudent.ApplicationId = appId;
                     existingStudent.GuardianName = form["guardianName"].ToString().Trim();
                     existingStudent.RelationWithGuardian = form["relationWithApplicant"].ToString().Trim();
                     existingStudent.GuardianEmail = form["guardianEmail"].ToString().Trim();
@@ -307,6 +308,7 @@ namespace DoctorateDrive.Controllers
                         GuardianEmail = form["guardianEmail"].ToString().Trim(),
                         GuardianMobileNumber = form["guardianMobile"].ToString().Trim(),
                         Document = appId,
+                        ApplicationId = appId,
                         FeesPaid = "No",
                         PreferredInstitute = preferredInstitute,
                         PreferredSpecialization = preferredSpecialization,
@@ -459,19 +461,35 @@ namespace DoctorateDrive.Controllers
                 }
 
                 // Conversion Certificate
-                var conversionCert = files.FirstOrDefault(f => f.Name == "conversionCertificate");
-                if (conversionCert != null && conversionCert.Length > 0)
-                {
-                    var fileName = $"{appId}_Conversion_{Path.GetExtension(conversionCert.FileName)}";
-                    var filePath = Path.Combine(uploadsPath, fileName);
+                //var conversionCert = files.FirstOrDefault(f => f.Name == "conversionCertificate");
+                //if (conversionCert != null && conversionCert.Length > 0)
+                //{
+                //    var fileName = $"{appId}_Conversion_{Path.GetExtension(conversionCert.FileName)}";
+                //    var filePath = Path.Combine(uploadsPath, fileName);
 
+                //    using (var stream = new FileStream(filePath, FileMode.Create))
+                //    {
+                //        await conversionCert.CopyToAsync(stream);
+                //    }
+
+                //    // Note: You'll need to add this column to StudentDetail model if you want to store it
+                //    _logger.LogInformation("✅ Conversion certificate uploaded: {FileName}", fileName);
+                //}
+
+
+
+                // ✅ Equivalent CGPA Certificate (only if uploaded and eligible)
+                var equivalentCert = files.FirstOrDefault(f => f.Name == "EquivalentCgpaCertificate");
+                if (equivalentCert != null && equivalentCert.Length > 0)
+                {
+                    var fileName = $"{appId}_EquivalentCgpa_{Path.GetExtension(equivalentCert.FileName)}";
+                    var filePath = Path.Combine(uploadsPath, fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        await conversionCert.CopyToAsync(stream);
+                        await equivalentCert.CopyToAsync(stream);
                     }
-
-                    // Note: You'll need to add this column to StudentDetail model if you want to store it
-                    _logger.LogInformation("✅ Conversion certificate uploaded: {FileName}", fileName);
+                    student.EquivalentCgpaCertificatePath = $"/uploads/certificates/{fileName}";
+                    _logger.LogInformation("✅ Equivalent CGPA certificate uploaded: {FileName}", fileName);
                 }
             }
             catch (Exception ex)

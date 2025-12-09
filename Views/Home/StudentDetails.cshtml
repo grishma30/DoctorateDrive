@@ -44,9 +44,25 @@
                             <input type="number" step="0.01" class="form-control" id="totalCgpa" name="totalCgpa" value="10" required />
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label class="form-label" for="equivalentPercentage">Equivalent Percentage* <small class="text-muted">(Auto-calculated)</small></label>
-                            <input type="number" step="0.01" class="form-control" id="equivalentPercentage" name="equivalentPercentage" readonly required />
+                            <label class="form-label" for="equivalentPercentage">Equivalent Percentage* <small class="text-muted"></small></label>
+                            <input type="number" step="0.01" class="form-control" id="equivalentPercentage" name="equivalentPercentage"  required />
                         </div>
+                        <!-- Equivalent CGPA Certificate Upload -->
+                        <div class="row mt-3" id="equivalentCgpaUpload" style="display: none;">
+                            <div class="col-12">
+                                <label class="form-label">Upload CGPA-to-Percentage Conversion Certificate*</label>
+                                <input type="file" class="form-control" id="equivalentCgpaCertificate" name="EquivalentCgpaCertificate" accept=".pdf,.jpg,.jpeg,.png" required />
+                                <small class="text-muted">Accepted: PDF, JPG, PNG (Max 5MB)</small>
+                            </div>
+                        </div>
+
+                        <!-- Message for ineligible students -->
+                        <div class="row mt-2" id="eligibilityMessage" style="display: none;">
+                            <div class="col-12">
+                                <p class="text-danger">You are not eligible to apply. Minimum CGPA required is 6.0.</p>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row">
@@ -297,22 +313,56 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+    @* <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
         // ===== Auto-calculate CGPA percentage =====
-        function calculatePercentage() {
-            const cgpa = parseFloat(document.getElementById('cgpaInput').value) || 0;
-            const total = parseFloat(document.getElementById('totalCgpa').value) || 10;
-            if (cgpa && total) {
-                const percent = ((cgpa / total) * 100).toFixed(2);
-                document.getElementById('equivalentPercentage').value = percent;
-                if (percent < 60) {
-                    alert("⚠️ Your percentage is below 60%. You may not be eligible.");
-                }
-            }
-        }
+        // function calculatePercentage() {
+        //     const cgpa = parseFloat(document.getElementById('cgpaInput').value) || 0;
+        //     const total = parseFloat(document.getElementById('totalCgpa').value) || 10;
+        //     if (cgpa && total) {
+        //         const percent = ((cgpa / total) * 100).toFixed(2);
+        //         document.getElementById('equivalentPercentage').value = percent;
+        //         if (percent < 60) {
+        //             alert("⚠️ Your percentage is below 60%. You may not be eligible.");
+        //         }
+        //     }
+        // }
 
         document.getElementById('cgpaInput').addEventListener('input', calculatePercentage);
         document.getElementById('totalCgpa').addEventListener('input', calculatePercentage);
+                const percentageInput = document.getElementById('equivalentPercentage');
+        const equivalentUpload = document.getElementById('equivalentCgpaUpload');
+        const equivalentFile = document.getElementById('equivalentCgpaCertificate');
+        const eligibilityMessage = document.getElementById('eligibilityMessage');
+        const form = document.querySelector('form');
+
+                // Block submission if percentage < 60
+        form.addEventListener('submit', function (e) {
+            const perc = parseFloat(percentageInput.value);
+            if (isNaN(perc) || perc < 60) {
+                e.preventDefault();
+                alert("⚠️ You cannot submit the form as your equivalent percentage is below 60%.");
+            }
+        });
+
+        percentageInput.addEventListener('input', function () {
+            const perc = parseFloat(this.value);
+            if (!isNaN(perc) && perc >= 60) {
+                equivalentUpload.style.display = 'block';
+                equivalentFile.required = true;
+                eligibilityMessage.style.display = 'none';
+            } else if (!isNaN(perc)) {
+                equivalentUpload.style.display = 'none';
+                equivalentFile.required = false;
+                eligibilityMessage.style.display = 'block';
+            } else {
+                equivalentUpload.style.display = 'none';
+                equivalentFile.required = false;
+                eligibilityMessage.style.display = 'none';
+            }
+        });
+
 
         // ===== Show/hide certificate uploads =====
         document.getElementById('graduateSelect').addEventListener('change', function () {
@@ -415,6 +465,154 @@
                 specializationSelect.disabled = true;
             }
         });
+        });
+    </script> *@
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const percentageInput = document.getElementById('equivalentPercentage');
+            const equivalentUpload = document.getElementById('equivalentCgpaUpload');
+            const equivalentFile = document.getElementById('equivalentCgpaCertificate');
+            const eligibilityMessage = document.getElementById('eligibilityMessage');
+            const form = document.querySelector('form');
+
+            // Block submission if percentage < 60
+            form.addEventListener('submit', function (e) {
+                const perc = parseFloat(percentageInput.value);
+                if (isNaN(perc) || perc < 60) {
+                    e.preventDefault();
+                    alert("⚠️ You cannot submit the form as your equivalent percentage is below 60%.");
+                }
+            });
+
+            // Show / Hide Equivalent CGPA Certificate Upload
+            percentageInput.addEventListener('input', function () {
+                const perc = parseFloat(this.value);
+
+                if (!isNaN(perc) && perc >= 60) {
+                    equivalentUpload.style.display = 'block';
+                    equivalentFile.required = true;
+                    eligibilityMessage.style.display = 'none';
+                } else if (!isNaN(perc)) {
+                    equivalentUpload.style.display = 'none';
+                    equivalentFile.required = false;
+                    eligibilityMessage.style.display = 'block';
+                } else {
+                    equivalentUpload.style.display = 'none';
+                    equivalentFile.required = false;
+                    eligibilityMessage.style.display = 'none';
+                }
+            });
+
+            // Show/hide Graduate Upload
+            document.getElementById('graduateSelect').addEventListener('change', function () {
+                const upload = document.getElementById('graduateUpload');
+                const input = document.getElementById('graduateCertificate');
+
+                if (this.value) {
+                    upload.style.display = 'block';
+                    input.required = true;
+                } else {
+                    upload.style.display = 'none';
+                    input.required = false;
+                }
+            });
+
+            // Show/hide Post Graduate Upload
+            document.getElementById('postGraduateSelect').addEventListener('change', function () {
+                const upload = document.getElementById('postGraduateUpload');
+                const input = document.getElementById('postGraduateCertificate');
+
+                if (this.value) {
+                    upload.style.display = 'block';
+                    input.required = true;
+                } else {
+                    upload.style.display = 'none';
+                    input.required = false;
+                }
+            });
+
+            // Show/hide GATE Upload
+            document.getElementById('gateSelect').addEventListener('change', function () {
+                const upload = document.getElementById('gateUpload');
+                const input = document.getElementById('gateCertificate');
+
+                if (this.value === 'Yes') {
+                    upload.style.display = 'block';
+                    input.required = true;
+                } else {
+                    upload.style.display = 'none';
+                    input.required = false;
+                }
+            });
+            // ===== Academic Preference: Dynamic Specialization Dropdown =====
+        const specializationData = {
+            "CSPIT": [
+                "Civil Engineering",
+                "Computer Engineering",
+                "Electrical Engineering"
+            ],
+            "IIIM": [
+                "Marketing and General Management",
+                "Finance Management",
+                "Operations Management",
+                "Banking and Accounting",
+                "Business Analytics"
+            ],
+            "CMPICA": [],
+            "PDPIAS": [
+                "Physics",
+                "Chemical Sciences",
+                "Biological Sciences",
+                "Mathematical Sciences"
+            ],
+            "BDPIS": [
+                "Medical Imaging Technology (e.g., CT, MRI)",
+                "Optometry",
+                "Operation Theatre & Anesthesia Technology",
+                "Cancer Biology",
+                "Drug Discovery"
+            ],
+            "ARIP": [
+                "Physiotherapy"
+            ],
+            "RPCP": [
+                "Pharmaceutical Analysis",
+                "Pharmaceutical Chemistry",
+                "Pharmaceutics",
+                "Pharmacology",
+                "Clinical Pharmacy & Pharmacognosy",
+                "Pharmacognosy"
+            ],
+            "MTIN": [
+                "Nursing"
+            ],
+            "DEPSTAR": []
+        };
+
+        document.getElementById('preferredInstitute').addEventListener('change', function () {
+            const inst = this.value;
+            const specializationSelect = document.getElementById('preferredSpecialization');
+            specializationSelect.innerHTML = '<option value="">Choose Specialization</option>';
+
+            if (specializationData[inst] && specializationData[inst].length > 0) {
+                specializationData[inst].forEach(function (spec) {
+                    const opt = document.createElement('option');
+                    opt.value = spec;
+                    opt.textContent = spec;
+                    specializationSelect.appendChild(opt);
+                });
+                specializationSelect.required = true;
+                specializationSelect.disabled = false;
+            } else {
+                specializationSelect.required = false;
+                specializationSelect.disabled = true;
+            }
+        });
+
+        });
     </script>
+
 </body>
 </html>
