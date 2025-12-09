@@ -211,6 +211,17 @@ namespace DoctorateDrive.Controllers
                 decimal.TryParse(form["totalCgpa"], out totalCgpa);
                 decimal.TryParse(form["equivalentPercentage"], out percentage);
 
+                // ❗ Eligibility check – minimum CGPA required is 6.0
+                if (cgpa < 6)
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "You are not eligible to apply. Minimum CGPA required is 6.0."
+                    });
+                }
+
+
                 DateTime dob = DateTime.Now.AddYears(-25);
                 DateTime.TryParse(form["dob"], out dob);
 
@@ -218,7 +229,7 @@ namespace DoctorateDrive.Controllers
                 string preferredInstitute = form["preferredInstitute"].ToString().Trim();
                 string preferredSpecialization = form["preferredSpecialization"].ToString().Trim();
 
-                string appId = existingStudent?.Document ?? GenerateAppId();
+                string appId = existingStudent?.Document ?? await GenerateAppIdAsync();
 
                 if (existingStudent != null)
                 {
@@ -328,16 +339,61 @@ namespace DoctorateDrive.Controllers
                 return View();
             }
         }
-
-        private string GenerateAppId()
+//        DD-202502-00001-ABX9
+//➡️ Prefix(DD)
+//➡️ Year(2025)
+//➡️ Month(02)
+//➡️ Sequence(00001)
+//➡️ Random 4-character code(A–Z, 0–9)
+        private async Task<string> GenerateAppIdAsync()
         {
+            var now = DateTime.Now;
+
+            string year = now.Year.ToString();         // 2025
+            string month = now.Month.ToString("D2");   // 02
+
+            int currentYear = now.Year;
+            int currentMonth = now.Month;
+
+            int sequenceNumber = 0;
+
+            // SERIALIZABLE = highest safety, prevents duplicate IDs
+            using (var transaction = await _context.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
+            {
+                // Count rows for THIS year+month inside the transaction
+                int count = await _context.StudentDetails
+                    .CountAsync(s => s.CreatedAt.Year == currentYear &&
+                                     s.CreatedAt.Month == currentMonth);
+
+                sequenceNumber = count + 1;  // Next safe sequence
+
+                await transaction.CommitAsync(); // Release lock
+            }
+
+            // Sequence - 4 digits → 0001, 0203, etc.
+            string sequence = sequenceNumber.ToString("D4");
+
+            // Generate 4 random characters
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var random = new Random();
-            return new string(Enumerable.Repeat(chars, 9)
+            string randomCode = new string(Enumerable.Repeat(chars, 4)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
+
+            // Final ID
+            string applicationId = $"DD-{year}{month}-{sequence}-{randomCode}";
+
+            return applicationId;
         }
 
-      
+        //private string GenerateAppId()
+        //{
+        //    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        //    var random = new Random();
+        //    return new string(Enumerable.Repeat(chars, 9)
+        //        .Select(s => s[random.Next(s.Length)]).ToArray());
+        //}
+
+
 
         // ============================================
         // FILE UPLOAD HELPER METHOD

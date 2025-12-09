@@ -408,20 +408,127 @@ namespace DoctorateDrive.Services
         private async Task SendOtpEmailAsync(User user, string otpCode)
         {
             var subject = "Your Verification Code - DoctorateDrive";
+
             var body = $@"
-Hello {user.FullName},
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {{ 
+            font-family: Arial, sans-serif; 
+            background: #f4f4f4; 
+            margin: 0; 
+            padding: 20px; 
+        }}
+        .container {{ 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+        }}
+        .header {{ 
+            background: linear-gradient(135deg, #1e5bb8 0%, #2980b9 100%); 
+            padding: 30px; 
+            text-align: center; 
+            color: white; 
+        }}
+        .content {{ 
+            padding: 40px 30px; 
+        }}
+        .otp-box {{ 
+            background: #f8f9fa; 
+            border: 2px dashed #1e5bb8; 
+            border-radius: 10px; 
+            padding: 20px; 
+            text-align: center; 
+            margin: 30px 0; 
+        }}
+        .otp-code {{ 
+            font-size: 36px; 
+            font-weight: bold; 
+            color: #1e5bb8; 
+            letter-spacing: 8px; 
+        }}
+        .cta-box {{
+            background: #eef4ff;
+            border-left: 4px solid #1e5bb8;
+            padding: 15px;
+            margin-top: 25px;
+            border-radius: 8px;
+        }}
+        .cta-box a {{
+            font-weight: bold;
+            color: #1e5bb8;
+            text-decoration: none;
+            font-size: 16px;
+        }}
+        .footer {{ 
+            background: #f8f9fa; 
+            padding: 20px; 
+            text-align: center; 
+            font-size: 12px; 
+            color: #6c757d; 
+        }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>🎓 DoctorateDrive</h1>
+            <p>Email Verification Code</p>
+        </div>
 
-Welcome to DoctorateDrive! 
+        <div class='content'>
+            <h2>Hello {user.FullName},</h2>
 
-Your verification code is: {otpCode}
+            <p>
+                Welcome to <strong>DoctorateDrive</strong>!  
+                We're excited to have you join our platform.
+            </p>
 
-This code will expire in 10 minutes. Please use it to complete your registration.
+            <p>Please use the verification code below to complete your registration:</p>
 
-If you didn't request this, please ignore this email.
+            <div class='otp-box'>
+                <div style='color: #6c757d; font-size: 14px; margin-bottom: 10px;'>Your OTP Code</div>
+                <div class='otp-code'>{otpCode}</div>
+                <div style='color: #6c757d; font-size: 12px; margin-top: 10px;'>Valid for 10 minutes</div>
+            </div>
 
-Best regards,
-DoctorateDrive Team
-            ";
+            <p style='color: #dc3545;'>⚠️ Never share this OTP with anyone.</p>
+
+            <p>If you did not request this code, you can safely ignore this email.</p>
+
+            <div class='cta-box'>
+                Click here to start your application now:<br/><br/>
+                <a href='#'>CHARUSAT Admission Application Portal</a>
+            </div>
+
+            <br/>
+
+            <p><strong>Got questions? We're here to help!</strong></p>
+
+            <p>
+                Phone 1: 7863810274 <br/>
+                Phone 2: 7863810275
+            </p>
+
+            <p>
+                Regards,<br/>
+                <strong>The Admissions Team</strong><br/>
+                CHARUSAT<br/>
+                www.charusat.ac.in
+            </p>
+        </div>
+
+        <div class='footer'>
+            <p>© 2025 DoctorateDrive. All rights reserved.</p>
+            <p>This is a system-generated email. Please do not reply.</p>
+        </div>
+    </div>
+</body>
+</html>";
 
             await _emailService.SendEmailAsync(user.EmailId, subject, body);
         }
