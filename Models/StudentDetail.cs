@@ -60,6 +60,8 @@ namespace DoctorateDrive.Models
         public string? PostGraduateQualification { get; set; }
         public string? PostGraduateCertificatePath { get; set; }
         public string? GateCertificatePath { get; set; }
+        public string? EquivalentCgpaCertificatePath { get; set; }
+
 
         [Required, StringLength(10)]
         public string FeesPaid { get; set; } = string.Empty;

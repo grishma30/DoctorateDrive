@@ -4,6 +4,7 @@ using DoctorateDrive.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorateDrive.Migrations
 {
     [DbContext(typeof(DoctorateDriveContext))]
-    partial class DoctorateDriveContextModelSnapshot : ModelSnapshot
+    [Migration("20251209110433_AddNewFieldName")]
+    partial class AddNewFieldName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
