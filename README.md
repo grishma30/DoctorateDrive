@@ -93,7 +93,7 @@ dotnet ef database update
 
 ## Database
 
-The project uses SQL Server with Entity Framework Core (Code First).
+The project uses MS SQL Server with Entity Framework Core (Code First).
 
 If required, create a migration using:
 
@@ -106,7 +106,3 @@ Then update the database:
 ```
 dotnet ef database update
 ```
-
-
-
-Government Engineering College, Modasa
